@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   FormErrorMessage,
   FormLabel,
@@ -8,19 +8,17 @@ import {
   FormHelperText,
   Box,
 } from "@chakra-ui/react";
-import { Simulate } from "react-dom/test-utils";
-import submit = Simulate.submit;
+
+import axios from "../api/axios";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const REGISTER_URL = "/users";
 
 const Register = () => {
   const passwordRequirements = {
     bg: "red.200",
   };
-
-  const emailRef = useRef();
-  const errRef = useRef();
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -59,8 +57,29 @@ const Register = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault;
-    console.log("testsadfasdf");
-    setSuccess(true);
+    try {
+      const response = await axios.post(
+        REGISTER_URL,
+        JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          password: pwd,
+        }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        },
+      );
+      console.log(response.data);
+      console.log(JSON.stringify(response));
+      setSuccess(true);
+    } catch (err) {
+      // @ts-ignore
+      if (err) {
+        setErrMsg("Something went wrong");
+      }
+    }
   };
 
   return (
