@@ -8,14 +8,15 @@ import {
   FormHelperText,
   Box,
 } from "@chakra-ui/react";
-import AuthContext from "../context/AuthProvider.tsx";
+import useAuth from "../hooks/useAuth.ts";
 import axios from "../api/axios";
+import qs from "qs";
 
 const LOGIN_URL = "/auth/token";
 
 const Login = () => {
   // @ts-ignore
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth;
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [success, setSuccess] = useState(false);
@@ -26,27 +27,23 @@ const Login = () => {
     try {
       const response = await axios.post(
         LOGIN_URL,
-        JSON.stringify({ username: email, password: pwd }),
+        qs.stringify({ username: email, password: pwd }),
         {
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
           withCredentials: true,
         },
       );
-      console.log(JSON.stringify(response?.data));
-      const accessToken = response?.data?.access_token;
-      setAuth({ email, pwd, accessToken });
       setSuccess(true);
-    } catch (error) {
+
+      console.log(JSON.stringify(response?.data));
+
+      const accessToken = response.data.access_token;
+      //console.log(accessToken);
+      //console.log("this is not opwrking ");
+      setAuth({ email, pwd, accessToken });
+    } catch (err) {
       // @ts-ignore
-      if (!error?.response) {
-        setError("No Server Response");
-        // @ts-ignore
-      } else if (error.response?.status === 400) {
-        // @ts-ignore
-        setError(error.response?.data.detail);
-      } else {
-        setError("Login Failed");
-      }
+      setError(err?.response?.data?.detail);
     }
   };
 
@@ -65,15 +62,21 @@ const Login = () => {
             />
           </FormControl>
 
-          <FormControl isRequired>
+          <FormControl isRequired isInvalid={error?.length > 0}>
             <FormLabel>Password</FormLabel>
             <Input
               type="password"
               value={pwd}
               onChange={(e) => setPwd(e.target.value)}
             />
+            <FormErrorMessage>{error}</FormErrorMessage>
           </FormControl>
-          <Button onClick={handleSubmit}>Login</Button>
+          <Button
+            onClick={handleSubmit}
+            isDisabled={email.length === 0 || pwd.length === 0}
+          >
+            Login
+          </Button>
         </form>
       )}
     </Box>
