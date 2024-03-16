@@ -9,16 +9,16 @@ import {
   Box,
 } from "@chakra-ui/react";
 
-const [email, setEmail] = useState("");
-const [pwd, setPwd] = useState("");
-const [success, setSuccess] = useState(false);
-
-const handleSubmit = () => {
-  console.log(email);
-  setSuccess(true);
-};
-
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [pwd, setPwd] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  const handleSubmit = () => {
+    console.log(email);
+    setSuccess(true);
+  };
+
   return (
     <Box>
       {success ? (
@@ -32,7 +32,6 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <FormHelperText>Enter your email address.</FormHelperText>
           </FormControl>
 
           <FormControl isRequired>
@@ -49,3 +48,5 @@ const Login = () => {
     </Box>
   );
 };
+
+export default Login;

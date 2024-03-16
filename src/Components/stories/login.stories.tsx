@@ -1,13 +1,13 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ChakraProvider } from "@chakra-ui/react";
 
-import Register from "../register.tsx";
+import Login from "../login.tsx";
 
 const queryClient = new QueryClient();
 
 export default {
-  component: Register,
-  title: "Registerddd",
+  component: Login,
+  title: "Login",
   tags: ["autodocs"],
   decorators: [
     (Story: any) => (
