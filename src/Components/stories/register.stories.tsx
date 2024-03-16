@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ChakraProvider } from "@chakra-ui/react";
 
-import Register from "./register.tsx";
+import Register from "../register.tsx";
 
 const queryClient = new QueryClient();
 
