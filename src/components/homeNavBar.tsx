@@ -7,7 +7,7 @@ import {
   Avatar,
   Button,
 } from "@chakra-ui/react";
-import CreateSurveyModel from "./createSurveyModel.tsx";
+import CreateSurvey from "./createSurvey.tsx";
 
 const HomeNavBar = () => {
   return (
@@ -16,7 +16,7 @@ const HomeNavBar = () => {
         <Text>My Feedback Form</Text>
         <Spacer />
         <HStack>
-          <CreateSurveyModel />
+          <CreateSurvey />
           <Avatar name="Greg McCarthy" />
         </HStack>
       </Flex>
