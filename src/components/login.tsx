@@ -1,26 +1,28 @@
 import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FormErrorMessage,
   FormLabel,
   FormControl,
   Input,
   Button,
-  FormHelperText,
   Box,
 } from "@chakra-ui/react";
 import useAuth from "../hooks/useAuth.ts";
 import axios from "../api/axios";
 import qs from "qs";
+import { AuthContext } from "../context/AuthProvider.tsx";
 
 const LOGIN_URL = "/auth/token";
 
 const Login = () => {
   // @ts-ignore
-  const { setAuth } = useAuth;
+  const { user, setUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault;
@@ -33,14 +35,18 @@ const Login = () => {
           withCredentials: true,
         },
       );
-      setSuccess(true);
 
-      console.log(JSON.stringify(response?.data));
+      //console.log(JSON.stringify(response?.data));
 
-      const accessToken = response.data.access_token;
-      //console.log(accessToken);
-      //console.log("this is not opwrking ");
-      setAuth({ email, pwd, accessToken });
+      const accessToken = response?.data?.access_token;
+      const refreshToken = response?.data?.refresh_token;
+
+      setUser({
+        accessToken: accessToken,
+      });
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      navigate("/");
     } catch (err) {
       // @ts-ignore
       setError(err?.response?.data?.detail);

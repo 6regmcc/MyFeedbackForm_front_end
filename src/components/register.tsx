@@ -10,16 +10,14 @@ import {
 } from "@chakra-ui/react";
 
 import axios from "../api/axios";
+import { useContext } from "react";
+import AuthContext from "../context/AuthProvider.tsx";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = "/users";
 
 const Register = () => {
-  const passwordRequirements = {
-    bg: "red.200",
-  };
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
@@ -73,6 +71,7 @@ const Register = () => {
       );
       console.log(response.data);
       console.log(JSON.stringify(response));
+
       setSuccess(true);
     } catch (err) {
       // @ts-ignore
