@@ -1,5 +1,5 @@
 import Survey from "./survey.tsx";
-import { Container, Text, Spinner } from "@chakra-ui/react";
+import { Container, Text, Spinner, Box } from "@chakra-ui/react";
 import { SurveyType, SurveyList } from "../types/types.ts";
 import axios from "../api/axios.ts";
 import { useQuery } from "@tanstack/react-query";
@@ -18,7 +18,7 @@ const ListSurveys = () => {
     return await axios.get(SURVEY_LIST_URL, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1LCJleHAiOjE3MTA2OTIzNzR9.QOmFZf-Iua_hBTm53HMSpJxgj7anspSc_VYcB4AJtuY`,
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
       withCredentials: true,
     });
@@ -39,7 +39,7 @@ const ListSurveys = () => {
   const surveysList = data?.data.data as SurveyList;
   console.log(surveysList);
   return (
-    <Container>
+    <Box boxShadow="base" p={4} mt={10}>
       {surveysList.map((survey: SurveyType, index: number) => {
         return (
           <Survey
@@ -49,7 +49,7 @@ const ListSurveys = () => {
           />
         );
       })}
-    </Container>
+    </Box>
   );
 };
 

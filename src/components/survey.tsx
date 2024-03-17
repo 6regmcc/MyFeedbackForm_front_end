@@ -11,7 +11,7 @@ import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
 const Survey = ({ surveyName, surveyId }: any) => {
   return (
-    <Card my={4} maxWidth="500px">
+    <Card my={4}>
       <CardBody>
         <Flex>
           <Text>{surveyName} </Text>

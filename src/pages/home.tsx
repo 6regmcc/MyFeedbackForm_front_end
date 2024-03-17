@@ -1,14 +1,13 @@
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthProvider.tsx";
+import { Container } from "@chakra-ui/react";
+import ListSurveys from "../components/listSurveys.tsx";
+import HomeNavBar from "../components/homeNavBar.tsx";
 
 const Home = () => {
-  // @ts-ignore
-  const { user } = useContext(AuthContext);
-  console.log(user);
   return (
-    <div>
-      <h1>Home page {user.accessToken}</h1>
-    </div>
+    <Container maxW="1200px">
+      <HomeNavBar />
+      <ListSurveys />
+    </Container>
   );
 };
 
