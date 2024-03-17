@@ -1,5 +1,3 @@
-/*
-
 import {
   Button,
   FormControl,
@@ -15,65 +13,28 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import axios from "../api/axios.ts";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useMutationPostHook from "../hooks/useMutationHook.tsx";
 
 const CREATE_SURVEY_URL = "/surveys";
 
 function CreateSurveyModel() {
+  const clearAndClose = () => {
+    onClose();
+    setSurveyName("");
+  };
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [surveyName, setSurveyName] = useState("default");
-  const payload = {
-    survey_name: surveyName,
-  };
+  const [surveyName, setSurveyName] = useState("");
+  const createSurvey = useMutationPostHook(
+    CREATE_SURVEY_URL,
+    "surveyList",
+    clearAndClose,
+  );
 
-  const queryClient = useQueryClient();
-
-
-    const mutation = useMutation({
-      // @ts-ignore
-      mutationFn: axios.post(CREATE_SURVEY_URL, JSON.stringify(payload), {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-
-        withCredentials: true,
-      }),
-
-      onSettled: () => {
-        queryClient.invalidateQueries({ queryKey: ["listSurveys"] });
-      },
-    });
-    return mutation;
-  };
-
-  /*
-
-
-
-  const createSurvey = useMutation({
+  const handleClick = (e: any) => {
+    e.preventDefault;
     // @ts-ignore
-    mutationFn: axios.post(CREATE_SURVEY_URL, JSON.stringify(payload), {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-
-      withCredentials: true,
-    }),
-
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["listSurveys"] });
-    },
-  });
-
-  const mutation = createSurvey();
-  const handleClick = async () => {
-    // @ts-ignore
-
-    mutation.mutate();
+    createSurvey.mutate({ survey_name: surveyName });
   };
 
   return (
@@ -110,6 +71,3 @@ function CreateSurveyModel() {
 }
 
 export default CreateSurveyModel;
-
-
-  */

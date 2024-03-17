@@ -2,7 +2,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import axios from "../api/axios.ts";
 
-const useMutationPostHook = (url: string, query: string) => {
+const useMutationPostHook = (
+  url: string,
+  query: string,
+  callback?: Function,
+) => {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     // @ts-ignore
@@ -19,6 +23,9 @@ const useMutationPostHook = (url: string, query: string) => {
 
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: [query] });
+      if (callback) {
+        callback();
+      }
     },
   });
   return mutation;
