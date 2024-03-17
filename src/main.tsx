@@ -19,18 +19,20 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ChakraProvider>
-        <Router>
-          <AuthProvider>
+        <AuthProvider>
+          <Router>
             <Routes>
               <Route element={<PrivateRoutes />}>
-                <Route path="/" element={<Home />} />
                 <Route path="/test" element={<Home />} />
+                <Route path="/" element={<Home />} />
               </Route>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
             </Routes>
-          </AuthProvider>
-        </Router>
+            <Routes>
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+            </Routes>
+          </Router>
+        </AuthProvider>
       </ChakraProvider>
     </QueryClientProvider>
   </React.StrictMode>,
