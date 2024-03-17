@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 
-import useMutationPostHook from "../hooks/useMutationHook.tsx";
+import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
 
 const CREATE_SURVEY_URL = "/surveys";
 

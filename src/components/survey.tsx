@@ -8,8 +8,17 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
+const DELETE_SURVEY_URL = "/surveys";
 
 const Survey = ({ surveyName, surveyId }: any) => {
+  const deleteSurvey = useMutationDeleteHook(DELETE_SURVEY_URL, "surveyList");
+
+  const handleClick = (e: any) => {
+    e.preventDefault();
+    deleteSurvey.mutate(surveyId);
+  };
+
   return (
     <Card my={4}>
       <CardBody>
@@ -18,7 +27,11 @@ const Survey = ({ surveyName, surveyId }: any) => {
           <Spacer />
           <HStack spacing="10px">
             <IconButton aria-label="Edit Survey" icon={<EditIcon />} />
-            <IconButton aria-label="Delete Survey" icon={<DeleteIcon />} />
+            <IconButton
+              aria-label="Delete Survey"
+              icon={<DeleteIcon />}
+              onClick={handleClick}
+            />
           </HStack>
         </Flex>
       </CardBody>

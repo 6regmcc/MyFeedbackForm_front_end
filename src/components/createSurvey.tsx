@@ -2,8 +2,8 @@ import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "../api/axios.ts";
-import useMutationHook from "../hooks/useMutationHook.tsx";
-import useMutationPostHook from "../hooks/useMutationHook.tsx";
+import useMutationHook from "../hooks/useMutationPostHook.tsx";
+import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
 
 const CREATE_SURVEY_URL = "/surveys";
 const CreateSurvey = () => {
