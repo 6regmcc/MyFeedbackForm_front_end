@@ -13,11 +13,26 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import CreateMultipleChoiceAnswerChoice from "./createMultipleChoiceAnswerChoice.tsx";
+import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
 
-const CreateMultipleChoiceQuestion = () => {
+const CreateMultipleChoiceQuestion = ({
+  clearAndClose,
+  survey_id,
+  page_id,
+}: any) => {
   const [answerChoiceLabels, setAnswerChoiceLabels] = useState([]);
 
   const [questionText, setQuestionText] = useState("");
+
+  const createQuestion = useMutationPostHook(
+    `/surveys/${survey_id}/pages/${page_id}/questions`,
+    "getSurveyDetails",
+    () => {
+      setAnswerChoiceLabels([]);
+      setQuestionText("");
+      clearAndClose();
+    },
+  );
 
   const handleAddChoiceClick = () => {
     const currentAnswerChoiceLabels = [...answerChoiceLabels];
@@ -43,8 +58,14 @@ const CreateMultipleChoiceQuestion = () => {
   };
 
   const handleSaveQuestionClick = () => {
-    console.log(questionText);
-    console.log(answerChoiceLabels);
+    const newQuestion = {
+      question_type: "closed_ended",
+      question_variant: "single_choice",
+      question_text: "questionText",
+      answer_choices: answerChoiceLabels,
+    };
+    // @ts-ignore
+    createQuestion.mutate(newQuestion);
   };
 
   const questionTextStyles: any = {
@@ -93,7 +114,14 @@ const CreateMultipleChoiceQuestion = () => {
         <Button m={5} onClick={handleSaveQuestionClick}>
           Save question
         </Button>
-        <Button m={5}>Cancel</Button>
+        <Button
+          m={5}
+          onClick={() => {
+            clearAndClose();
+          }}
+        >
+          Cancel
+        </Button>
       </HStack>
     </Card>
   );

@@ -15,6 +15,7 @@ import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
 import MultipleChoiceQuestion from "./multipleChoiceQuestion.tsx";
 import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
+import CreateQuestionModel from "./ createQuestionModel.tsx";
 
 const SurveyPage = ({
   pageTitle,
@@ -75,7 +76,7 @@ const SurveyPage = ({
           <Spacer />
           <Stack>
             <Button onClick={handleDeletePage}>Delete Page</Button>
-            <Button onClick={handleAddQuestion}>Add Question</Button>
+            <CreateQuestionModel page_id={page_id} />
           </Stack>
         </HStack>
       ) : (
