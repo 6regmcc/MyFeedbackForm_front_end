@@ -10,11 +10,19 @@ import {
 import { useState } from "react";
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
+import MultipleChoiceQuestion from "./multipleChoiceQuestion.tsx";
 
-const SurveyPage = ({ pageTitle, pageDescription, page_id }: any) => {
+const SurveyPage = ({
+  pageTitle,
+  pageDescription,
+  page_id,
+  questions,
+}: any) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editPageTitle, setEditPageTitle] = useState("");
   const [editPageDescription, setEditPageDescription] = useState("");
+
+  //console.log(questions);
 
   const handelEditClick = (_e: any) => {
     setIsEdit(!isEdit);
@@ -75,6 +83,18 @@ const SurveyPage = ({ pageTitle, pageDescription, page_id }: any) => {
           </HStack>
         </Box>
       )}
+      {questions.map((question: any, index: number) => {
+        if (question.question_type === "closed_ended") {
+          return (
+            <MultipleChoiceQuestion
+              key={index}
+              questionText={question.question_text}
+              answerChoices={question.answer_choices}
+              questionPosition={question.question_position}
+            />
+          );
+        }
+      })}
     </Card>
   );
 };

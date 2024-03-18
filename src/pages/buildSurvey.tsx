@@ -34,7 +34,7 @@ const BuildSurvey = () => {
     return <Spinner />;
   }
   const surveysDetails = data?.data;
-  console.log(surveysDetails);
+  //console.log(surveysDetails.pages[0].questions);
 
   return (
     <Container maxW="1200px">
@@ -46,6 +46,7 @@ const BuildSurvey = () => {
             pageTitle={page.page_title}
             pageDescription={page.page_description}
             page_id={page.page_id}
+            questions={page.questions}
           />
         );
       })}
