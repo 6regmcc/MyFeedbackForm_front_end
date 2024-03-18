@@ -1,26 +1,36 @@
 import {
   Box,
+  Button,
   Card,
   HStack,
   IconButton,
   Indicator,
   Input,
+  Spacer,
+  Stack,
   Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
 import MultipleChoiceQuestion from "./multipleChoiceQuestion.tsx";
+import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
 
 const SurveyPage = ({
   pageTitle,
   pageDescription,
   page_id,
   questions,
+  surveyId,
 }: any) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editPageTitle, setEditPageTitle] = useState("");
   const [editPageDescription, setEditPageDescription] = useState("");
+
+  const deletePage = useMutationDeleteHook(
+    `/surveys/${surveyId}/pages`,
+    "getSurveyDetails",
+  );
 
   //console.log(questions);
 
@@ -44,17 +54,30 @@ const SurveyPage = ({
     console.log(newPageTitle + newPageDescription);
   };
 
+  const handleDeletePage = () => {
+    deletePage.mutate(page_id);
+  };
+
+  const handleAddQuestion = () => {};
+
   return (
     <Card boxShadow="base" p={4} mt={10}>
       {!isEdit ? (
-        <Box onClick={handelEditClick}>
-          <Text fontSize="4xl" m={2}>
-            {pageTitle}
-          </Text>
-          <Text fontSize="1xl" m={2}>
-            {pageDescription}
-          </Text>
-        </Box>
+        <HStack>
+          <Box onClick={handelEditClick}>
+            <Text fontSize="4xl" m={2}>
+              {pageTitle}
+            </Text>
+            <Text fontSize="1xl" m={2}>
+              {pageDescription}
+            </Text>
+          </Box>
+          <Spacer />
+          <Stack>
+            <Button onClick={handleDeletePage}>Delete Page</Button>
+            <Button onClick={handleAddQuestion}>Add Question</Button>
+          </Stack>
+        </HStack>
       ) : (
         <Box>
           <Input
@@ -71,12 +94,12 @@ const SurveyPage = ({
           />
           <HStack spacing="10px" m={2}>
             <IconButton
-              aria-label="Edit Survey"
+              aria-label="Save"
               icon={<CheckIcon />}
               onClick={handelUpdatePage}
             />
             <IconButton
-              aria-label="Delete Survey"
+              aria-label="Cancel"
               icon={<CloseIcon />}
               onClick={handelEditClick}
             />

@@ -40,7 +40,7 @@ const MultipleChoiceQuestion = ({
                   key={index}
                   value={choice.ce_choice_id}
                 >
-                  <Text sx={answerChoiceTextStyles}>{choice.choice_label}</Text>
+                  <Text fontSize="lg">{choice.choice_label}</Text>
                 </Radio>
               );
             })}

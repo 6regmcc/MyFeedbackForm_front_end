@@ -7,6 +7,7 @@ import {
   Input,
   Radio,
   RadioGroup,
+  Spacer,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -23,6 +24,7 @@ const CreateMultipleChoiceQuestion = () => {
     // @ts-ignore
     currentAnswerChoiceLabels.push({ choice_label: "" });
     setAnswerChoiceLabels(currentAnswerChoiceLabels);
+    //console.log(currentAnswerChoiceLabels);
   };
 
   const handleUpdateAnswerChoiceLabels = (index: number, choiceLabel: {}) => {
@@ -32,18 +34,35 @@ const CreateMultipleChoiceQuestion = () => {
     setAnswerChoiceLabels(currentChoiceLabels);
   };
 
+  const handelRemoveAnswerChoice = (index: any) => {
+    const currentChoiceLabels = [...answerChoiceLabels];
+
+    currentChoiceLabels.splice(index, 1);
+    console.log(currentChoiceLabels);
+    setAnswerChoiceLabels(currentChoiceLabels);
+  };
+
   const handleSaveQuestionClick = () => {
     console.log(questionText);
     console.log(answerChoiceLabels);
   };
 
+  const questionTextStyles: any = {
+    fontSize: "2xl",
+    ml: 6,
+    mt: 5,
+  };
+
   return (
     <Card>
-      <FormControl>
-        <Input
-          value={questionText}
-          onChange={(e) => setQuestionText(e.target.value)}
-        />
+      <FormControl p={5}>
+        <HStack>
+          <Input
+            placeholder={"Question text"}
+            value={questionText}
+            onChange={(e) => setQuestionText(e.target.value)}
+          />
+        </HStack>
       </FormControl>
 
       <RadioGroup>
@@ -52,8 +71,11 @@ const CreateMultipleChoiceQuestion = () => {
             {answerChoiceLabels.map((_choice, index) => {
               return (
                 <CreateMultipleChoiceAnswerChoice
+                  // @ts-ignore
+                  choiceLabel={_choice.choice_label}
                   key={index}
                   index={index}
+                  deleteChoice={handelRemoveAnswerChoice}
                   handleUpdateAnswerChoiceLabels={
                     handleUpdateAnswerChoiceLabels
                   }
@@ -63,15 +85,16 @@ const CreateMultipleChoiceQuestion = () => {
           </Stack>
         </Box>
       </RadioGroup>
-
-      <Button
-        onClick={() => {
-          handleAddChoiceClick();
-        }}
-      >
-        Add choice
-      </Button>
-      <Button onClick={handleSaveQuestionClick}>Save question</Button>
+      <HStack>
+        <Spacer />
+        <Button m={5} onClick={handleAddChoiceClick}>
+          Add choice
+        </Button>
+        <Button m={5} onClick={handleSaveQuestionClick}>
+          Save question
+        </Button>
+        <Button m={5}>Cancel</Button>
+      </HStack>
     </Card>
   );
 };
