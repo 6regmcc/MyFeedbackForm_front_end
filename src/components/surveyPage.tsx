@@ -11,7 +11,7 @@ import { useState } from "react";
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
 
-const SurveyPage = ({ pageTitle, pageDescription }: any) => {
+const SurveyPage = ({ pageTitle, pageDescription, page_id }: any) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editPageTitle, setEditPageTitle] = useState("");
   const [editPageDescription, setEditPageDescription] = useState("");
@@ -38,7 +38,7 @@ const SurveyPage = ({ pageTitle, pageDescription }: any) => {
 
   return (
     <Card boxShadow="base" p={4} mt={10}>
-      {isEdit ? (
+      {!isEdit ? (
         <Box onClick={handelEditClick}>
           <Text fontSize="4xl" m={2}>
             {pageTitle}

@@ -37,7 +37,7 @@ const ListSurveys = () => {
     return <Spinner />;
   }
   const surveysList = data?.data.data as SurveyList;
-  console.log(surveysList);
+  //console.log(surveysList);
   return (
     <Box boxShadow="base" p={4} mt={10}>
       {surveysList.map((survey: SurveyType, index: number) => {

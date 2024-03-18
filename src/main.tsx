@@ -12,6 +12,7 @@ import Login from "./components/login.tsx";
 import Register from "./components/register.tsx";
 import Home from "./pages/home.tsx";
 import Test from "./components/test.tsx";
+import BuildSurvey from "./pages/buildSurvey.tsx";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Route element={<PrivateRoutes />}>
                 <Route path="/test" element={<Home />} />
                 <Route path="/" element={<Home />} />
+                <Route path="/build/:survey_id" element={<BuildSurvey />} />
               </Route>
             </Routes>
             <Routes>
