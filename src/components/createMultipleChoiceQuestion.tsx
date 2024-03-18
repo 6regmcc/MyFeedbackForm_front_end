@@ -11,7 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import CreateMultipleChoiceAnswerChoice from "./stories/createMultipleChoiceAnswerChoice.tsx";
+import CreateMultipleChoiceAnswerChoice from "./createMultipleChoiceAnswerChoice.tsx";
 
 const CreateMultipleChoiceQuestion = () => {
   const [answerChoiceLabels, setAnswerChoiceLabels] = useState([]);
@@ -27,6 +27,7 @@ const CreateMultipleChoiceQuestion = () => {
 
   const handleUpdateAnswerChoiceLabels = (index: number, choiceLabel: {}) => {
     const currentChoiceLabels = [...answerChoiceLabels];
+    // @ts-ignore
     currentChoiceLabels[index] = choiceLabel;
     setAnswerChoiceLabels(currentChoiceLabels);
   };
@@ -48,7 +49,7 @@ const CreateMultipleChoiceQuestion = () => {
       <RadioGroup>
         <Box>
           <Stack>
-            {answerChoiceLabels.map((choice, index) => {
+            {answerChoiceLabels.map((_choice, index) => {
               return (
                 <CreateMultipleChoiceAnswerChoice
                   key={index}
