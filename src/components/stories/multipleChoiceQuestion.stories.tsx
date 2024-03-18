@@ -56,5 +56,6 @@ export const Default = () => (
   <MultipleChoiceQuestion
     questionText={exampleQuestion.question_text}
     answerChoices={exampleQuestion.answer_choices}
+    questionPosition={exampleQuestion.question_position}
   />
 );
