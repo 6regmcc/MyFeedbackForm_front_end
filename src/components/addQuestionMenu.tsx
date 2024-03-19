@@ -17,10 +17,13 @@ import {
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import CreateQuestionModel from "./ createQuestionModel.tsx";
 import { useParams } from "react-router-dom";
-import CreateMultipleChoiceQuestion from "./createMultipleChoiceQuestion.tsx";
+import CreateMultipleChoiceQuestion from "./createQuestion.tsx";
+import CreateQuestion from "./createQuestion.tsx";
+import { useState } from "react";
 
 const AddQuestionMenu = ({ page_id }: any) => {
   const { survey_id } = useParams();
+  const [questionType, setQuestionType] = useState({});
 
   const clearAndClose = () => {
     onClose();
@@ -28,6 +31,18 @@ const AddQuestionMenu = ({ page_id }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleMultipleChoiceQuestionClick = () => {
+    setQuestionType({
+      question_type: "closed_ended",
+      question_variant: "single_choice",
+    });
+    onOpen();
+  };
+
+  const handleCheckboxQuestionClick = () => {
+    setQuestionType({
+      question_type: "closed_ended",
+      question_variant: "multi_choice",
+    });
     onOpen();
   };
 
@@ -41,7 +56,7 @@ const AddQuestionMenu = ({ page_id }: any) => {
           <MenuItem onClick={handleMultipleChoiceQuestionClick}>
             Multiple Choice
           </MenuItem>
-          <MenuItem>Checkbox</MenuItem>
+          <MenuItem onClick={handleCheckboxQuestionClick}>Checkbox</MenuItem>
           <MenuItem>Text</MenuItem>
         </MenuList>
       </Menu>
@@ -52,10 +67,11 @@ const AddQuestionMenu = ({ page_id }: any) => {
             <ModalHeader>Add Question</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <CreateMultipleChoiceQuestion
+              <CreateQuestion
                 clearAndClose={clearAndClose}
                 survey_id={survey_id}
                 page_id={page_id}
+                questionType={questionType}
               />
             </ModalBody>
             <ModalFooter></ModalFooter>

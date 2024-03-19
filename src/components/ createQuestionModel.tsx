@@ -16,7 +16,7 @@ import { useState } from "react";
 
 import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
 import { useParams } from "react-router-dom";
-import CreateMultipleChoiceQuestion from "./createMultipleChoiceQuestion.tsx";
+import CreateMultipleChoiceQuestion from "./createQuestion.tsx";
 
 function CreateQuestionModel({ page_id }: any) {
   const { survey_id } = useParams();

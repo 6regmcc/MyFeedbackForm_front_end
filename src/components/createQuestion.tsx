@@ -14,11 +14,16 @@ import {
 import { useState } from "react";
 import CreateMultipleChoiceAnswerChoice from "./createMultipleChoiceAnswerChoice.tsx";
 import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
+import _ from "lodash";
+import CreateCheckboxAnswerChoices from "./createCheckboxAnswerChoices.tsx";
 
-const CreateMultipleChoiceQuestion = ({
+console.log();
+
+const CreateQuestion = ({
   clearAndClose,
   survey_id,
   page_id,
+  questionType,
 }: any) => {
   const [answerChoiceLabels, setAnswerChoiceLabels] = useState([]);
 
@@ -59,9 +64,9 @@ const CreateMultipleChoiceQuestion = ({
 
   const handleSaveQuestionClick = () => {
     const newQuestion = {
-      question_type: "closed_ended",
-      question_variant: "single_choice",
-      question_text: "questionText",
+      question_type: questionType.question_type,
+      question_variant: questionType.question_variant,
+      question_text: questionText,
       answer_choices: answerChoiceLabels,
     };
     // @ts-ignore
@@ -90,18 +95,43 @@ const CreateMultipleChoiceQuestion = ({
         <Box>
           <Stack>
             {answerChoiceLabels.map((_choice, index) => {
-              return (
-                <CreateMultipleChoiceAnswerChoice
-                  // @ts-ignore
-                  choiceLabel={_choice.choice_label}
-                  key={index}
-                  index={index}
-                  deleteChoice={handelRemoveAnswerChoice}
-                  handleUpdateAnswerChoiceLabels={
-                    handleUpdateAnswerChoiceLabels
-                  }
-                />
-              );
+              if (
+                _.isEqual(questionType, {
+                  question_type: "closed_ended",
+                  question_variant: "single_choice",
+                })
+              ) {
+                return (
+                  <CreateMultipleChoiceAnswerChoice
+                    // @ts-ignore
+                    choiceLabel={_choice.choice_label}
+                    key={index}
+                    index={index}
+                    deleteChoice={handelRemoveAnswerChoice}
+                    handleUpdateAnswerChoiceLabels={
+                      handleUpdateAnswerChoiceLabels
+                    }
+                  />
+                );
+              } else if (
+                _.isEqual(questionType, {
+                  question_type: "closed_ended",
+                  question_variant: "multi_choice",
+                })
+              ) {
+                return (
+                  <CreateCheckboxAnswerChoices
+                    // @ts-ignore
+                    choiceLabel={_choice.choice_label}
+                    key={index}
+                    index={index}
+                    deleteChoice={handelRemoveAnswerChoice}
+                    handleUpdateAnswerChoiceLabels={
+                      handleUpdateAnswerChoiceLabels
+                    }
+                  />
+                );
+              }
             })}
           </Stack>
         </Box>
@@ -127,4 +157,4 @@ const CreateMultipleChoiceQuestion = ({
   );
 };
 
-export default CreateMultipleChoiceQuestion;
+export default CreateQuestion;
