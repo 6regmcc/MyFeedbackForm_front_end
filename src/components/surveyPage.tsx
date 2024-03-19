@@ -16,6 +16,7 @@ import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
 import MultipleChoiceQuestion from "./multipleChoiceQuestion.tsx";
 import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
 import CreateQuestionModel from "./ createQuestionModel.tsx";
+import AddQuestionMenu from "./addQuestionMenu.tsx";
 
 const SurveyPage = ({
   pageTitle,
@@ -76,7 +77,7 @@ const SurveyPage = ({
           <Spacer />
           <Stack>
             <Button onClick={handleDeletePage}>Delete Page</Button>
-            <CreateQuestionModel page_id={page_id} />
+            <AddQuestionMenu page_id={page_id} />
           </Stack>
         </HStack>
       ) : (
