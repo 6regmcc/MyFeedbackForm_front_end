@@ -7,6 +7,10 @@ import {
   Spacer,
   Stack,
   Text,
+  Editable,
+  EditableInput,
+  EditableTextarea,
+  EditablePreview,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { DeleteIcon } from "@chakra-ui/icons";
@@ -18,8 +22,9 @@ const MultiChoiceAnswerChoice = ({
   survey_id,
   page_id,
   question_id,
+  handleChoiceUpdate,
 }: any) => {
-  const [isEdit, setIsEdit] = useState(false);
+  const [choiceLabel, setChoiceLabel] = useState("");
 
   const deleteAnswerChoice = useMutationDeleteHook(
     `/surveys/${survey_id}/pages/${page_id}/questions/${question_id}/choices`,
@@ -29,15 +34,23 @@ const MultiChoiceAnswerChoice = ({
   const handleDeleteChoice = () => {
     deleteAnswerChoice.mutate(choice.ce_choice_id);
   };
-  const handelEditClick = (_e: any) => {
-    setIsEdit(!isEdit);
-    console.log("click");
-  };
+
   return (
     <HStack>
-      <Radio sx={answerChoiceStyles} value={choice.ce_choice_id}>
-        <Text fontSize="xl">{choice.choice_label}</Text>
-      </Radio>
+      <Radio sx={answerChoiceStyles} value={choice.ce_choice_id}></Radio>
+      <Editable
+        defaultValue={choice.choice_label}
+        onChange={(e) => {
+          setChoiceLabel(e);
+        }}
+        onSubmit={(e) => {
+          console.log(choiceLabel);
+          handleChoiceUpdate(e, question_id, choice.ce_choice_id);
+        }}
+      >
+        <EditablePreview />
+        <EditableInput />
+      </Editable>
       <Spacer />
       <IconButton
         aria-label="Delete Choic"

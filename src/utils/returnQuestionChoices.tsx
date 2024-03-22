@@ -3,6 +3,7 @@ import MultipleChoiceQuestion from "../components/multipleChoiceQuestion.tsx";
 import { Box, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
 import MulitChoiceAnswerChoice from "../components/mulitChoiceAnswerChoice.tsx";
 import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
+import useMutationPatchHook from "../hooks/useMutationPutHook.tsx";
 
 const answerChoiceBoxStyles: any = {
   m: 15,
@@ -22,6 +23,22 @@ const ReturnQuestionChoices = ({
   question_variant,
   isDisabled,
 }: any) => {
+  const updateChoice = useMutationPatchHook(
+    `/surveys/${survey_id}/pages/${page_id}/questions
+`,
+    "getSurveyDetails",
+  );
+  const handleChoiceUpdate = (
+    choiceLabel: string,
+    question_id: number,
+    choice_id: number,
+  ) => {
+    // @ts-ignore
+    updateChoice.mutate({
+      payload: { choice_label: choiceLabel },
+      id: `${question_id}/choices/${choice_id}/update_choice`,
+    });
+  };
   if (
     question_type === "closed_ended" &&
     question_variant === "single_choice"
@@ -39,6 +56,7 @@ const ReturnQuestionChoices = ({
                   survey_id={survey_id}
                   page_id={page_id}
                   question_id={question_id}
+                  handleChoiceUpdate={handleChoiceUpdate}
                 />
               );
             })}
