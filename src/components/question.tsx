@@ -12,12 +12,15 @@ import {
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
+import ReturnQuestionChoices from "../utils/returnQuestionChoices.tsx";
 
 const Question = ({
   index,
   questionText,
   answerChoices,
   questionPosition,
+  question_type,
+  question_variant,
   page_id,
   survey_id,
   question_id,
@@ -65,11 +68,15 @@ const Question = ({
         />
       </HStack>
 
-      <RadioGroup>
-        <Box sx={answerChoiceBoxStyles}>
-          <Stack></Stack>
-        </Box>
-      </RadioGroup>
+      {ReturnQuestionChoices({
+        question_type,
+        question_variant,
+        answerChoices,
+        isDisabled,
+        survey_id,
+        page_id,
+        question_id,
+      })}
     </Card>
   );
 };

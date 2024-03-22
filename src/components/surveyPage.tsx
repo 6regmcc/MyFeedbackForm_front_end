@@ -116,6 +116,8 @@ const SurveyPage = ({
             <Question
               questionText={question.question_text}
               answerChoices={question.answer_choices}
+              question_type={question.question_type}
+              question_variant={question.question_variant}
               questionPosition={question.question_position}
               survey_id={survey_id}
               page_id={page_id}

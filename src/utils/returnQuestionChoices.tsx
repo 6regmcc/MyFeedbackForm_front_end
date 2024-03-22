@@ -1,51 +1,62 @@
 import CheckboxQuestion from "../components/checkboxQuestion.tsx";
 import MultipleChoiceQuestion from "../components/multipleChoiceQuestion.tsx";
-const returnQuestionChoices = (
-  index: number,
-  question: any,
-  surveyId: number,
-  page_id: number,
-  question_id: number,
-  isDisabled: Boolean,
-) => {
+import { Box, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
+import MulitChoiceAnswerChoice from "../components/mulitChoiceAnswerChoice.tsx";
+import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
+
+const answerChoiceBoxStyles: any = {
+  m: 15,
+};
+
+const answerChoiceStyles: any = {
+  my: 1,
+  mr: 2,
+  ml: 6,
+};
+const ReturnQuestionChoices = ({
+  answerChoices,
+  survey_id,
+  page_id,
+  question_id,
+  question_type,
+  question_variant,
+  isDisabled,
+}: any) => {
   if (
-    question.question_type === "closed_ended" &&
-    question.question_variant === "single_choice"
+    question_type === "closed_ended" &&
+    question_variant === "single_choice"
   ) {
     return (
-      <MultipleChoiceQuestion
-        key={index}
-        questionText={question.question_text}
-        answerChoices={question.answer_choices}
-        questionPosition={question.question_position}
-        survey_id={surveyId}
-        page_id={page_id}
-        question_id={question_id}
-        isDisabled={isDisabled}
-      />
+      <RadioGroup>
+        <Box sx={answerChoiceBoxStyles}>
+          <Stack>
+            {answerChoices.map((choice: any, index: number) => {
+              return (
+                <MulitChoiceAnswerChoice
+                  key={index}
+                  answerChoiceStyles={answerChoiceStyles}
+                  choice={choice}
+                  survey_id={survey_id}
+                  page_id={page_id}
+                  question_id={question_id}
+                />
+              );
+            })}
+          </Stack>
+        </Box>
+      </RadioGroup>
     );
   } else if (
-    question.question_type === "closed_ended" &&
-    question.question_variant === "multi_choice"
+    question_type === "closed_ended" &&
+    question_variant === "multi_choice"
   ) {
-    return (
-      <CheckboxQuestion
-        key={index}
-        questionText={question.question_text}
-        answerChoices={question.answer_choices}
-        questionPosition={question.question_position}
-        survey_id={surveyId}
-        page_id={page_id}
-        question_id={question_id}
-        isDisabled={isDisabled}
-      />
-    );
+    return;
   } else if (
-    question.question_type === "open_ended" &&
-    question.question_variant === "single_choice"
+    question_type === "open_ended" &&
+    question_variant === "single_choice"
   ) {
     return;
   }
 };
 
-export default returnQuestionChoices;
+export default ReturnQuestionChoices;
