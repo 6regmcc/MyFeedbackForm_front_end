@@ -1,6 +1,6 @@
-import { Box, Card, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
+import { Box, Card, Checkbox, RadioGroup, Stack, Text } from "@chakra-ui/react";
 
-const MultipleChoiceQuestion = ({
+const CheckboxQuestion = ({
   questionText,
   answerChoices,
   questionPosition,
@@ -36,13 +36,13 @@ const MultipleChoiceQuestion = ({
           <Stack>
             {answerChoices.map((choice: any, index: number) => {
               return (
-                <Radio
+                <Checkbox
                   sx={answerChoiceStyles}
                   key={index}
                   value={choice.ce_choice_id}
                 >
                   <Text fontSize="lg">{choice.choice_label}</Text>
-                </Radio>
+                </Checkbox>
               );
             })}
           </Stack>
@@ -52,4 +52,4 @@ const MultipleChoiceQuestion = ({
   );
 };
 
-export default MultipleChoiceQuestion;
+export default CheckboxQuestion;

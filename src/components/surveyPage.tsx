@@ -17,6 +17,7 @@ import MultipleChoiceQuestion from "./multipleChoiceQuestion.tsx";
 import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
 import CreateQuestionModel from "./ createQuestionModel.tsx";
 import AddQuestionMenu from "./addQuestionMenu.tsx";
+import returnQuestionType from "../utils/returnQuestionType.tsx";
 
 const SurveyPage = ({
   pageTitle,
@@ -109,16 +110,7 @@ const SurveyPage = ({
         </Box>
       )}
       {questions.map((question: any, index: number) => {
-        if (question.question_type === "closed_ended") {
-          return (
-            <MultipleChoiceQuestion
-              key={index}
-              questionText={question.question_text}
-              answerChoices={question.answer_choices}
-              questionPosition={question.question_position}
-            />
-          );
-        }
+        return <Box m={4}>{returnQuestionType(index, question, true)}</Box>;
       })}
     </Card>
   );
