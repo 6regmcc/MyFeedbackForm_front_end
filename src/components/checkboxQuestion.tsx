@@ -4,6 +4,7 @@ const CheckboxQuestion = ({
   questionText,
   answerChoices,
   questionPosition,
+  question_id,
   isDisabled,
 }: any) => {
   const questionTextStyles: any = {

@@ -47,7 +47,7 @@ const BuildSurvey = () => {
             pageDescription={page.page_description}
             page_id={page.page_id}
             questions={page.questions}
-            surveyId={survey_id}
+            survey_id={survey_id}
           />
         );
       })}

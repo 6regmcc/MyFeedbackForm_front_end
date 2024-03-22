@@ -17,21 +17,22 @@ import MultipleChoiceQuestion from "./multipleChoiceQuestion.tsx";
 import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
 import CreateQuestionModel from "./ createQuestionModel.tsx";
 import AddQuestionMenu from "./addQuestionMenu.tsx";
-import returnQuestionType from "../utils/returnQuestionType.tsx";
+import returnQuestionType from "../utils/returnQuestionChoices.tsx";
+import Question from "./question.tsx";
 
 const SurveyPage = ({
   pageTitle,
   pageDescription,
   page_id,
   questions,
-  surveyId,
+  survey_id,
 }: any) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editPageTitle, setEditPageTitle] = useState("");
   const [editPageDescription, setEditPageDescription] = useState("");
 
   const deletePage = useMutationDeleteHook(
-    `/surveys/${surveyId}/pages`,
+    `/surveys/${survey_id}/pages`,
     "getSurveyDetails",
   );
 
@@ -110,7 +111,19 @@ const SurveyPage = ({
         </Box>
       )}
       {questions.map((question: any, index: number) => {
-        return <Box m={4}>{returnQuestionType(index, question, true)}</Box>;
+        return (
+          <Box key={index} m={4}>
+            <Question
+              questionText={question.question_text}
+              answerChoices={question.answer_choices}
+              questionPosition={question.question_position}
+              survey_id={survey_id}
+              page_id={page_id}
+              question_id={question.question_id}
+              isDisabled={true}
+            />
+          </Box>
+        );
       })}
     </Card>
   );

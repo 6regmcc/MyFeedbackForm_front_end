@@ -1,8 +1,11 @@
 import CheckboxQuestion from "../components/checkboxQuestion.tsx";
 import MultipleChoiceQuestion from "../components/multipleChoiceQuestion.tsx";
-const returnQuestionType = (
+const returnQuestionChoices = (
   index: number,
   question: any,
+  surveyId: number,
+  page_id: number,
+  question_id: number,
   isDisabled: Boolean,
 ) => {
   if (
@@ -15,6 +18,9 @@ const returnQuestionType = (
         questionText={question.question_text}
         answerChoices={question.answer_choices}
         questionPosition={question.question_position}
+        survey_id={surveyId}
+        page_id={page_id}
+        question_id={question_id}
         isDisabled={isDisabled}
       />
     );
@@ -28,6 +34,9 @@ const returnQuestionType = (
         questionText={question.question_text}
         answerChoices={question.answer_choices}
         questionPosition={question.question_position}
+        survey_id={surveyId}
+        page_id={page_id}
+        question_id={question_id}
         isDisabled={isDisabled}
       />
     );
@@ -39,4 +48,4 @@ const returnQuestionType = (
   }
 };
 
-export default returnQuestionType;
+export default returnQuestionChoices;

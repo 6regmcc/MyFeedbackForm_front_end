@@ -13,7 +13,8 @@ import {
 import { DeleteIcon } from "@chakra-ui/icons";
 import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
 
-const MultipleChoiceQuestion = ({
+const Question = ({
+  index,
   questionText,
   answerChoices,
   questionPosition,
@@ -51,7 +52,7 @@ const MultipleChoiceQuestion = ({
   };
 
   return (
-    <Card>
+    <Card key={index}>
       <HStack>
         <Text sx={questionTextStyles}>
           {questionPosition}. {questionText}
@@ -66,23 +67,11 @@ const MultipleChoiceQuestion = ({
 
       <RadioGroup>
         <Box sx={answerChoiceBoxStyles}>
-          <Stack>
-            {answerChoices.map((choice: any, index: number) => {
-              return (
-                <Radio
-                  sx={answerChoiceStyles}
-                  key={index}
-                  value={choice.ce_choice_id}
-                >
-                  <Text fontSize="lg">{choice.choice_label}</Text>
-                </Radio>
-              );
-            })}
-          </Stack>
+          <Stack></Stack>
         </Box>
       </RadioGroup>
     </Card>
   );
 };
 
-export default MultipleChoiceQuestion;
+export default Question;
