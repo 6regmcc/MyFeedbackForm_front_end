@@ -78,11 +78,9 @@ const Question = ({
           {questionPosition}. {questionText}
         </Text>
         <Spacer />
-        <IconButton
-          aria-label="Delete Question"
-          icon={<DeleteIcon />}
-          onClick={handleDeleteQuestion}
-        />
+        <Button m={4} onClick={handleDeleteQuestion}>
+          Delete Question
+        </Button>
       </HStack>
 
       {ReturnQuestionChoices({

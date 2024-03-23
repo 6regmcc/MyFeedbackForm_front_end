@@ -15,7 +15,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import CreateQuestionModel from "./ createQuestionModel.tsx";
+//import CreateQuestionModel from "./ createQuestionModel.tsx";
 import { useParams } from "react-router-dom";
 import CreateMultipleChoiceQuestion from "./createQuestion.tsx";
 import CreateQuestion from "./createQuestion.tsx";
