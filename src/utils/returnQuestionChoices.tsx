@@ -1,10 +1,18 @@
-import CheckboxQuestion from "../components/checkboxQuestion.tsx";
-import MultipleChoiceQuestion from "../components/multipleChoiceQuestion.tsx";
-import { Box, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Card,
+  Checkbox,
+  Input,
+  Radio,
+  RadioGroup,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import MulitChoiceAnswerChoice from "../components/mulitChoiceAnswerChoice.tsx";
 
 import useMutationPatchHook from "../hooks/useMutationPutHook.tsx";
 import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
+import CheckboxAnswerChoice from "../components/checkboxAnswerChoice.tsx";
 
 const answerChoiceBoxStyles: any = {
   m: 15,
@@ -22,7 +30,6 @@ const ReturnQuestionChoices = ({
   question_id,
   question_type,
   question_variant,
-  isDisabled,
 }: any) => {
   const updateChoice = useMutationPatchHook(
     `/surveys/${survey_id}/pages/${page_id}/questions
@@ -65,8 +72,6 @@ const ReturnQuestionChoices = ({
                   key={choice.ce_choice_id}
                   answerChoiceStyles={answerChoiceStyles}
                   choice={choice}
-                  survey_id={survey_id}
-                  page_id={page_id}
                   question_id={question_id}
                   handleChoiceUpdate={handleChoiceUpdate}
                   handleChoiceDelete={handleChoiceDelete}
@@ -81,12 +86,37 @@ const ReturnQuestionChoices = ({
     question_type === "closed_ended" &&
     question_variant === "multi_choice"
   ) {
-    return;
+    return (
+      <RadioGroup>
+        <Box sx={answerChoiceBoxStyles}>
+          <Stack>
+            {answerChoices.map((choice: any) => {
+              return (
+                <CheckboxAnswerChoice
+                  key={choice.ce_choice_id}
+                  answerChoiceStyles={answerChoiceStyles}
+                  choice={choice}
+                  question_id={question_id}
+                  handleChoiceUpdate={handleChoiceUpdate}
+                  handleChoiceDelete={handleChoiceDelete}
+                />
+              );
+            })}
+          </Stack>
+        </Box>
+      </RadioGroup>
+    );
   } else if (
     question_type === "open_ended" &&
     question_variant === "single_choice"
   ) {
-    return;
+    return (
+      <Box sx={answerChoiceBoxStyles}>
+        <Stack m={4}>
+          <Input border="1px" disabled={true}></Input>;
+        </Stack>
+      </Box>
+    );
   }
 };
 

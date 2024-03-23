@@ -2,17 +2,17 @@ import {
   Box,
   HStack,
   IconButton,
-  Radio,
   Spacer,
   Editable,
   EditableInput,
   EditablePreview,
   Input,
+  Checkbox,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { DeleteIcon } from "@chakra-ui/icons";
 
-const MultiChoiceAnswerChoice = ({
+const CheckboxAnswerChoice = ({
   answerChoiceStyles,
   choice,
 
@@ -25,7 +25,10 @@ const MultiChoiceAnswerChoice = ({
   return (
     <Box id="choiceBox">
       <HStack>
-        <Radio sx={answerChoiceStyles} value={choice.ce_choice_id}></Radio>
+        <Checkbox
+          sx={answerChoiceStyles}
+          value={choice.ce_choice_id}
+        ></Checkbox>
 
         <Editable
           width="100%"
@@ -59,4 +62,4 @@ const MultiChoiceAnswerChoice = ({
   );
 };
 
-export default MultiChoiceAnswerChoice;
+export default CheckboxAnswerChoice;

@@ -1,8 +1,5 @@
 import {
   Button,
-  FormControl,
-  FormLabel,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -12,11 +9,9 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useState } from "react";
 
-import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
 import { useParams } from "react-router-dom";
-import CreateMultipleChoiceQuestion from "./createQuestion.tsx";
+import CreateQuestion from "./createQuestion.tsx";
 
 function CreateQuestionModel({ page_id }: any) {
   const { survey_id } = useParams();
@@ -36,7 +31,7 @@ function CreateQuestionModel({ page_id }: any) {
           <ModalHeader>Add Page</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <CreateMultipleChoiceQuestion
+            <CreateQuestion
               clearAndClose={clearAndClose}
               survey_id={survey_id}
               page_id={page_id}
@@ -54,4 +49,4 @@ function CreateQuestionModel({ page_id }: any) {
   );
 }
 
-export default CreateQuestionModel;
+//export default CreateQuestionModel;

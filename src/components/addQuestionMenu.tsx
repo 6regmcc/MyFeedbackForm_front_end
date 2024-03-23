@@ -46,6 +46,14 @@ const AddQuestionMenu = ({ page_id }: any) => {
     onOpen();
   };
 
+  const handleSingleTextBoxQuestionClick = () => {
+    setQuestionType({
+      question_type: "open_ended",
+      question_variant: "single_choice",
+    });
+    onOpen();
+  };
+
   return (
     <Box>
       <Menu>
@@ -57,7 +65,9 @@ const AddQuestionMenu = ({ page_id }: any) => {
             Multiple Choice
           </MenuItem>
           <MenuItem onClick={handleCheckboxQuestionClick}>Checkbox</MenuItem>
-          <MenuItem>Text</MenuItem>
+          <MenuItem onClick={handleSingleTextBoxQuestionClick}>
+            Single Text Box
+          </MenuItem>
         </MenuList>
       </Menu>
       <>

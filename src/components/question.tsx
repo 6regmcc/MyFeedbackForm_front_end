@@ -13,6 +13,8 @@ import {
 import { DeleteIcon } from "@chakra-ui/icons";
 import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
 import ReturnQuestionChoices from "../utils/returnQuestionChoices.tsx";
+import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
+import { useState } from "react";
 
 const Question = ({
   index,
@@ -26,10 +28,16 @@ const Question = ({
   question_id,
   isDisabled,
 }: any) => {
+  const [newChoiceLabel, setNewChoiceLoabel] = useState("");
   const deleteQuestion = useMutationDeleteHook(
     `/surveys/${survey_id}/pages/${page_id}/questions`,
     "getSurveyDetails",
   );
+  const addAnswerChoice = useMutationPostHook(
+    `/surveys/${survey_id}/pages/${page_id}/questions/${question_id}/choices`,
+    "getSurveyDetails",
+  );
+
   const questionTextStyles: any = {
     fontSize: "2xl",
     ml: 6,
@@ -48,6 +56,15 @@ const Question = ({
 
   const answerChoiceTextStyles: any = {
     fontSize: "lg",
+  };
+
+  const handleAddChoice = () => {
+    const payload =
+      question_type === "closed_ended"
+        ? { choice_label: "" }
+        : { choice_label: "", open_ended_choice_type: "question" };
+    // @ts-ignore
+    addAnswerChoice.mutate(payload);
   };
 
   const handleDeleteQuestion = () => {
@@ -77,6 +94,10 @@ const Question = ({
         page_id,
         question_id,
       })}
+      <HStack m={3}>
+        <Spacer />
+        <Button onClick={handleAddChoice}>Add Choice</Button>
+      </HStack>
     </Card>
   );
 };

@@ -20,7 +20,6 @@ const MultipleChoiceQuestion = ({
   page_id,
   survey_id,
   question_id,
-  isDisabled,
 }: any) => {
   const deleteQuestion = useMutationDeleteHook(
     `/surveys/${survey_id}/pages/${page_id}/questions`,

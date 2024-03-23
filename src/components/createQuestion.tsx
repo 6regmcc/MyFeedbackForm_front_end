@@ -131,6 +131,13 @@ const CreateQuestion = ({
                     }
                   />
                 );
+              } else if (
+                _.isEqual(questionType, {
+                  question_type: "open_ended",
+                  question_variant: "single_choice",
+                })
+              ) {
+                return <Input width="full" disabled={true}></Input>;
               }
             })}
           </Stack>
@@ -138,9 +145,15 @@ const CreateQuestion = ({
       </RadioGroup>
       <HStack>
         <Spacer />
-        <Button m={5} onClick={handleAddChoiceClick}>
-          Add choice
-        </Button>
+        {questionType.question_type === "open_ended" &&
+        questionType.question_variant === "single_choice" ? (
+          <></>
+        ) : (
+          <Button m={5} onClick={handleAddChoiceClick}>
+            Add choice
+          </Button>
+        )}
+
         <Button m={5} onClick={handleSaveQuestionClick}>
           Save question
         </Button>
