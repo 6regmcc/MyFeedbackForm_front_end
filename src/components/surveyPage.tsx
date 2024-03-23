@@ -2,9 +2,11 @@ import {
   Box,
   Button,
   Card,
+  Editable,
+  EditableInput,
+  EditablePreview,
   HStack,
   IconButton,
-  Indicator,
   Input,
   Spacer,
   Stack,
@@ -12,13 +14,13 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
-import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
-import MultipleChoiceQuestion from "./multipleChoiceQuestion.tsx";
+
 import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
-import CreateQuestionModel from "./ createQuestionModel.tsx";
+
 import AddQuestionMenu from "./addQuestionMenu.tsx";
-import returnQuestionType from "../utils/returnQuestionChoices.tsx";
+
 import Question from "./question.tsx";
+import UseMutationPutHook from "../hooks/useMutationPutHook.tsx";
 
 const SurveyPage = ({
   pageTitle,
@@ -36,81 +38,98 @@ const SurveyPage = ({
     "getSurveyDetails",
   );
 
+  const updatePage = UseMutationPutHook(
+    `/surveys/${survey_id}/pages`,
+    "getSurveyDetails",
+  );
+
   //console.log(questions);
-
-  const handelEditClick = (_e: any) => {
-    setIsEdit(!isEdit);
-    console.log("click");
-  };
-
-  const pageTitleChange = (e: any) => {
-    setEditPageTitle(e.target.value);
-  };
-
-  const pageDescriptionChange = (e: any) => {
-    setEditPageDescription(e.target.value);
-  };
 
   const handelUpdatePage = () => {
     const newPageTitle = editPageTitle.length > 0 ? editPageTitle : pageTitle;
     const newPageDescription =
       editPageDescription.length > 0 ? editPageDescription : pageDescription;
-    console.log(newPageTitle + newPageDescription);
+    // @ts-ignore
+    updatePage.mutate({
+      payload: {
+        page_title: newPageTitle,
+        page_description: newPageDescription,
+      },
+      id: page_id,
+    });
+  };
+  const handleTitleChange = () => {
+    // @ts-ignore
+    updatePage.mutate({
+      payload: { page_title: editPageTitle, page_description: pageDescription },
+      id: page_id,
+    });
+  };
+
+  const handleDescriptionChange = () => {
+    // @ts-ignore
+    updatePage.mutate({
+      payload: { page_title: pageTitle, page_description: editPageDescription },
+      id: page_id,
+    });
   };
 
   const handleDeletePage = () => {
     deletePage.mutate(page_id);
   };
 
-  const handleAddQuestion = () => {};
-
   return (
     <Card boxShadow="base" p={4} mt={10}>
-      {!isEdit ? (
-        <HStack>
-          <Box onClick={handelEditClick}>
-            <Text fontSize="4xl" m={2}>
-              {pageTitle}
-            </Text>
-            <Text fontSize="1xl" m={2}>
-              {pageDescription}
-            </Text>
-          </Box>
-          <Spacer />
-          <Stack>
-            <Button onClick={handleDeletePage}>Delete Page</Button>
-            <AddQuestionMenu page_id={page_id} />
-          </Stack>
-        </HStack>
-      ) : (
-        <Box>
-          <Input
+      <HStack>
+        <Stack>
+          <Editable
+            fontSize="3xl"
             m={2}
-            placeholder={pageTitle}
-            value={editPageTitle}
-            onChange={pageTitleChange}
-          />
-          <Input
+            sx={
+              pageTitle.length === 0 && editPageTitle.length === 0
+                ? { textColor: "gray" }
+                : { textColor: "black" }
+            }
+            //value={editPageTitle}
+            onChange={(e) => {
+              setEditPageTitle(e);
+            }}
+            onSubmit={handleTitleChange}
+            defaultValue={pageTitle}
+            placeholder={"Enter page title (optional)"}
+          >
+            <EditablePreview />
+            <EditableInput />
+          </Editable>
+          <Editable
+            sx={
+              pageDescription.length === 0 && editPageDescription.length === 0
+                ? { textColor: "gray" }
+                : { textColor: "black" }
+            }
+            fontSize="1xl"
             m={2}
-            placeholder={pageDescription}
-            value={editPageDescription}
-            onChange={pageDescriptionChange}
-          />
-          <HStack spacing="10px" m={2}>
-            <IconButton
-              aria-label="Save"
-              icon={<CheckIcon />}
-              onClick={handelUpdatePage}
-            />
-            <IconButton
-              aria-label="Cancel"
-              icon={<CloseIcon />}
-              onClick={handelEditClick}
-            />
-          </HStack>
-        </Box>
-      )}
-      {questions.map((question: any, index: number) => {
+            //value={editPageDescription}
+            onChange={(e) => {
+              setEditPageDescription(e);
+            }}
+            onSubmit={handleDescriptionChange}
+            defaultValue={pageDescription}
+            placeholder={"Enter page description (optional)"}
+          >
+            <EditablePreview />
+            <EditableInput />
+          </Editable>
+        </Stack>
+
+        <Spacer />
+        <Stack>
+          <Button onClick={handleDeletePage}>Delete Page</Button>
+          <AddQuestionMenu page_id={page_id} />
+        </Stack>
+      </HStack>
+
+      {questions.map((question: any) => {
         return (
           <Box key={question.question_id} m={4}>
             <Question
