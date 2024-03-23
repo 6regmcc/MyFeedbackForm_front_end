@@ -112,7 +112,7 @@ const SurveyPage = ({
       )}
       {questions.map((question: any, index: number) => {
         return (
-          <Box key={index} m={4}>
+          <Box key={question.question_id} m={4}>
             <Question
               questionText={question.question_text}
               answerChoices={question.answer_choices}

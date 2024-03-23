@@ -2,6 +2,9 @@ import {
   Box,
   Button,
   Card,
+  Editable,
+  EditableInput,
+  EditablePreview,
   HStack,
   IconButton,
   Radio,
@@ -15,6 +18,7 @@ import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
 import ReturnQuestionChoices from "../utils/returnQuestionChoices.tsx";
 import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
 import { useState } from "react";
+import useMutationPutHook from "../hooks/useMutationPutHook.tsx";
 
 const Question = ({
   index,
@@ -35,6 +39,11 @@ const Question = ({
   );
   const addAnswerChoice = useMutationPostHook(
     `/surveys/${survey_id}/pages/${page_id}/questions/${question_id}/choices`,
+    "getSurveyDetails",
+  );
+
+  const updateQuestion = useMutationPutHook(
+    `/surveys/${survey_id}/pages/${page_id}`,
     "getSurveyDetails",
   );
 
@@ -71,12 +80,28 @@ const Question = ({
     deleteQuestion.mutate(question_id);
   };
 
+  const handleQuestionUpdate = (updatedQuestionText: any) => {
+    // @ts-ignore
+    updateQuestion.mutate({
+      payload: { question_text: updatedQuestionText },
+      id: `questions/${question_id}`,
+    });
+  };
+
   return (
     <Card key={index}>
-      <HStack>
-        <Text sx={questionTextStyles}>
-          {questionPosition}. {questionText}
-        </Text>
+      <HStack sx={questionTextStyles}>
+        <Text>{questionPosition}.</Text>
+        <Editable
+          defaultValue={` ${questionText}`}
+          onSubmit={(e) => {
+            handleQuestionUpdate(e);
+          }}
+        >
+          <EditablePreview />
+          <EditableInput />
+        </Editable>
+
         <Spacer />
         <Button m={4} onClick={handleDeleteQuestion}>
           Delete Question

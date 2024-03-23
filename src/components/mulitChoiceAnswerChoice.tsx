@@ -34,7 +34,6 @@ const MultiChoiceAnswerChoice = ({
             setChoiceLabel(e);
           }}
           onSubmit={(e) => {
-            console.log(choiceLabel);
             handleChoiceUpdate(e, question_id, choice.ce_choice_id);
           }}
         >
