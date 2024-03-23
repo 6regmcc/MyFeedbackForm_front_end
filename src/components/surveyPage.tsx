@@ -86,7 +86,7 @@ const SurveyPage = ({
             fontSize="3xl"
             m={2}
             sx={
-              pageTitle.length === 0 && editPageTitle.length === 0
+              pageTitle === null && editPageTitle.length === 0
                 ? { textColor: "gray" }
                 : { textColor: "black" }
             }
@@ -103,7 +103,7 @@ const SurveyPage = ({
           </Editable>
           <Editable
             sx={
-              pageDescription.length === 0 && editPageDescription.length === 0
+              pageDescription === null && editPageDescription.length === 0
                 ? { textColor: "gray" }
                 : { textColor: "black" }
             }
