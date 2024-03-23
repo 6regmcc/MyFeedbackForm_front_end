@@ -25,15 +25,12 @@ const MultiChoiceAnswerChoice = ({
   page_id,
   question_id,
   handleChoiceUpdate,
-  handleDeleteChoice,
 }: any) => {
   const [choiceLabel, setChoiceLabel] = useState("");
-
-  const deleteAnswerChoice = useMutationDeleteHook(
-    `/surveys/${survey_id}/pages/${page_id}/questions/${question_id}/choices`,
+  const deleteChoice = useMutationDeleteHook(
+    `/surveys/${survey_id}/pages/${page_id}`,
     "getSurveyDetails",
   );
-
   return (
     <Box id="choiceBox">
       <HStack>
@@ -41,7 +38,7 @@ const MultiChoiceAnswerChoice = ({
 
         <Editable
           width="100%"
-          defaultValue={choice.choice_label}
+          defaultValue={`${choice.choice_label}${choice.ce_choice_id}`}
           onChange={(e) => {
             setChoiceLabel(e);
           }}
@@ -54,18 +51,22 @@ const MultiChoiceAnswerChoice = ({
             <EditablePreview />
             <Input as={EditableInput} />
             <Spacer />
-            <IconButton
-              aria-label="Delete Choice"
-              icon={<DeleteIcon />}
-              onClick={() => {
-                console.log("delete button clicked");
-                handleDeleteChoice(question_id, choice.ce_choice_id);
-              }}
-            />
           </HStack>
         </Editable>
 
         <Spacer />
+
+        <IconButton
+          aria-label="Delete Choice"
+          icon={<DeleteIcon />}
+          onClick={() => {
+            // @ts-ignore
+            // @ts-ignore
+            deleteChoice.mutate(
+              `questions/${question_id}/choices/${choice.ce_choice_id}`,
+            );
+          }}
+        />
       </HStack>
     </Box>
   );

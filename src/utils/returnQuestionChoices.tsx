@@ -2,7 +2,7 @@ import CheckboxQuestion from "../components/checkboxQuestion.tsx";
 import MultipleChoiceQuestion from "../components/multipleChoiceQuestion.tsx";
 import { Box, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react";
 import MulitChoiceAnswerChoice from "../components/mulitChoiceAnswerChoice.tsx";
-import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
+
 import useMutationPatchHook from "../hooks/useMutationPutHook.tsx";
 
 const answerChoiceBoxStyles: any = {
@@ -28,10 +28,7 @@ const ReturnQuestionChoices = ({
 `,
     "getSurveyDetails",
   );
-  const deleteAnswerChoice = useMutationDeleteHook(
-    `/surveys/${survey_id}/pages/${page_id}/questions`,
-    "getSurveyDetails",
-  );
+
   const handleChoiceUpdate = (
     choiceLabel: string,
     question_id: number,
@@ -42,11 +39,6 @@ const ReturnQuestionChoices = ({
       payload: { choice_label: choiceLabel },
       id: `${question_id}/choices/${choice_id}/update_choice`,
     });
-  };
-  const handleDeleteChoice = async (question_id: number, choice_id: number) => {
-    console.log("delete choice called");
-    // @ts-ignore
-    deleteAnswerChoice.mutate(`${question_id}/choices/${choice_id}`);
   };
 
   if (
@@ -60,14 +52,13 @@ const ReturnQuestionChoices = ({
             {answerChoices.map((choice: any, index: number) => {
               return (
                 <MulitChoiceAnswerChoice
-                  key={index}
+                  key={choice.ce_choice_id}
                   answerChoiceStyles={answerChoiceStyles}
                   choice={choice}
                   survey_id={survey_id}
                   page_id={page_id}
                   question_id={question_id}
                   handleChoiceUpdate={handleChoiceUpdate}
-                  handleDeleteChoice={handleDeleteChoice}
                 />
               );
             })}
