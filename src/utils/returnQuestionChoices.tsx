@@ -28,6 +28,10 @@ const ReturnQuestionChoices = ({
 `,
     "getSurveyDetails",
   );
+  const deleteAnswerChoice = useMutationDeleteHook(
+    `/surveys/${survey_id}/pages/${page_id}/questions`,
+    "getSurveyDetails",
+  );
   const handleChoiceUpdate = (
     choiceLabel: string,
     question_id: number,
@@ -39,6 +43,12 @@ const ReturnQuestionChoices = ({
       id: `${question_id}/choices/${choice_id}/update_choice`,
     });
   };
+  const handleDeleteChoice = async (question_id: number, choice_id: number) => {
+    console.log("delete choice called");
+    // @ts-ignore
+    deleteAnswerChoice.mutate(`${question_id}/choices/${choice_id}`);
+  };
+
   if (
     question_type === "closed_ended" &&
     question_variant === "single_choice"
@@ -57,6 +67,7 @@ const ReturnQuestionChoices = ({
                   page_id={page_id}
                   question_id={question_id}
                   handleChoiceUpdate={handleChoiceUpdate}
+                  handleDeleteChoice={handleDeleteChoice}
                 />
               );
             })}

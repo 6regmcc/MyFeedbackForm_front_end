@@ -11,6 +11,8 @@ import {
   EditableInput,
   EditableTextarea,
   EditablePreview,
+  useEditableControls,
+  Input,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { DeleteIcon } from "@chakra-ui/icons";
@@ -23,6 +25,7 @@ const MultiChoiceAnswerChoice = ({
   page_id,
   question_id,
   handleChoiceUpdate,
+  handleDeleteChoice,
 }: any) => {
   const [choiceLabel, setChoiceLabel] = useState("");
 
@@ -31,33 +34,40 @@ const MultiChoiceAnswerChoice = ({
     "getSurveyDetails",
   );
 
-  const handleDeleteChoice = () => {
-    deleteAnswerChoice.mutate(choice.ce_choice_id);
-  };
-
   return (
-    <HStack>
-      <Radio sx={answerChoiceStyles} value={choice.ce_choice_id}></Radio>
-      <Editable
-        defaultValue={choice.choice_label}
-        onChange={(e) => {
-          setChoiceLabel(e);
-        }}
-        onSubmit={(e) => {
-          console.log(choiceLabel);
-          handleChoiceUpdate(e, question_id, choice.ce_choice_id);
-        }}
-      >
-        <EditablePreview />
-        <EditableInput />
-      </Editable>
-      <Spacer />
-      <IconButton
-        aria-label="Delete Choic"
-        icon={<DeleteIcon />}
-        onClick={handleDeleteChoice}
-      />
-    </HStack>
+    <Box id="choiceBox">
+      <HStack>
+        <Radio sx={answerChoiceStyles} value={choice.ce_choice_id}></Radio>
+
+        <Editable
+          width="100%"
+          defaultValue={choice.choice_label}
+          onChange={(e) => {
+            setChoiceLabel(e);
+          }}
+          onSubmit={(e) => {
+            console.log(choiceLabel);
+            handleChoiceUpdate(e, question_id, choice.ce_choice_id);
+          }}
+        >
+          <HStack>
+            <EditablePreview />
+            <Input as={EditableInput} />
+            <Spacer />
+            <IconButton
+              aria-label="Delete Choice"
+              icon={<DeleteIcon />}
+              onClick={() => {
+                console.log("delete button clicked");
+                handleDeleteChoice(question_id, choice.ce_choice_id);
+              }}
+            />
+          </HStack>
+        </Editable>
+
+        <Spacer />
+      </HStack>
+    </Box>
   );
 };
 
