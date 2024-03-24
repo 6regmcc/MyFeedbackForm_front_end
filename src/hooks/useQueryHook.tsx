@@ -3,7 +3,7 @@ import axios from "../api/axios.ts";
 
 const useQueryHook = (url: string, query: string) => {
   const { isLoading, isError, data, error } = useQuery({
-    queryKey: ["getSurveyCollectors"],
+    queryKey: [query],
     queryFn: async () => {
       return await axios.get(url, {
         headers: {

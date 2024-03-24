@@ -12,11 +12,11 @@ import {
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useState } from "react";
-import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
+import useMutationPatchHook from "../hooks/useMutationPatchHook.tsx";
 import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
 const BASE_URL = import.meta.env.BASE_URL;
 const Collector = ({ survey_id, is_open, url, collector_id }: any) => {
-  const updateCollector = useMutationPostHook(
+  const updateCollector = useMutationPatchHook(
     `/surveys/${survey_id}/collectors`,
     "getSurveyCollectors",
   );
@@ -38,7 +38,7 @@ const Collector = ({ survey_id, is_open, url, collector_id }: any) => {
   };
 
   return (
-    <ListItem>
+    <ListItem m={2}>
       <HStack>
         <Link> http://127.0.0.1:8000/responses/{url}</Link>
         <Spacer />
@@ -57,7 +57,7 @@ const Collector = ({ survey_id, is_open, url, collector_id }: any) => {
         </Box>
 
         <IconButton
-          mx={3}
+          my={1}
           aria-label="delete collector"
           onClick={handleDeleteCollector}
           icon={<DeleteIcon />}
