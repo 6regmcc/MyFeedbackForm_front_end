@@ -28,7 +28,7 @@ const ListSurveys = () => {
     queryKey: ["surveyList"],
     queryFn: fetchSurveyList,
   });
-  console.log(isError);
+
   if (isError) {
     console.log(error);
     return <Text>{error.message}</Text>;

@@ -10,8 +10,8 @@ const useMutationPostHook = (
   const queryClient = useQueryClient();
   const mutation = useMutation({
     // @ts-ignore
-    mutationFn: (newSurvey) => {
-      return axios.post(url, JSON.stringify(newSurvey), {
+    mutationFn: ({ payload, id }) => {
+      return axios.post(`${url}/${id}`, JSON.stringify(payload), {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

@@ -5,19 +5,28 @@ import {
   Spacer,
   Box,
   Avatar,
-  Button,
+  Image,
 } from "@chakra-ui/react";
 import CreateSurveyModel from "./createSurveyModel.tsx";
-
+import MyFeedbackForm_large from "../images/MyFeedbackForm_large.png";
 const HomeNavBar = () => {
   return (
     <Box>
       <Flex>
-        <Text>My Feedback Form</Text>
+        <HStack>
+          <Box boxSize="200px">
+            <Image src={MyFeedbackForm_large} alt="My feedback from" />
+          </Box>
+          <Text fontSize="5xl">My Surveys</Text>
+        </HStack>
+
         <Spacer />
         <HStack>
-          <CreateSurveyModel />
-          <Avatar name="Greg McCarthy" />
+          <Box mx={8}>
+            <CreateSurveyModel />
+          </Box>
+
+          <Avatar size="lg" name="Greg McCarthy" />
         </HStack>
       </Flex>
     </Box>
