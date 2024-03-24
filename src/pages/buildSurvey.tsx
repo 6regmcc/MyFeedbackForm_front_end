@@ -17,6 +17,7 @@ import axios from "../api/axios.ts";
 import survey from "../components/survey.tsx";
 import { useState } from "react";
 import useMutationPutHook from "../hooks/useMutationPutHook.tsx";
+import ListCollectors from "../components/listCollectors.tsx";
 
 const BuildSurvey = () => {
   const { survey_id } = useParams();
@@ -77,6 +78,7 @@ const BuildSurvey = () => {
         <EditablePreview />
         <EditableInput />
       </Editable>
+      <ListCollectors survey_id={survey_id} />
       {surveysDetails.pages.map((page: any, index: any) => {
         return (
           <SurveyPage

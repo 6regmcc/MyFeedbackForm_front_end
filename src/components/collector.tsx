@@ -1,5 +1,6 @@
 import {
   Box,
+  Divider,
   FormControl,
   FormLabel,
   HStack,
@@ -62,6 +63,7 @@ const Collector = ({ survey_id, is_open, url, collector_id }: any) => {
           icon={<DeleteIcon />}
         />
       </HStack>
+      <Divider />
     </ListItem>
   );
 };

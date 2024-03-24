@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "../api/axios.ts";
 
-const useQueryHook = async (url: string, query: string) => {
+const useQueryHook = (url: string, query: string) => {
   const { isLoading, isError, data, error } = useQuery({
-    queryKey: [query],
+    queryKey: ["getSurveyCollectors"],
     queryFn: async () => {
       return await axios.get(url, {
         headers: {
