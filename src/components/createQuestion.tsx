@@ -30,7 +30,7 @@ const CreateQuestion = ({
   const [questionText, setQuestionText] = useState("");
 
   const createQuestion = useMutationPostHook(
-    `/surveys/${survey_id}/pages/${page_id}/questions`,
+    `/surveys/${survey_id}/pages/${page_id}`,
     "getSurveyDetails",
     () => {
       setAnswerChoiceLabels([]);
@@ -70,7 +70,7 @@ const CreateQuestion = ({
       answer_choices: answerChoiceLabels,
     };
     // @ts-ignore
-    createQuestion.mutate(newQuestion);
+    createQuestion.mutate({ payload: newQuestion, id: "questions" });
   };
 
   const questionTextStyles: any = {

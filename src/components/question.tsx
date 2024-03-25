@@ -38,7 +38,7 @@ const Question = ({
     "getSurveyDetails",
   );
   const addAnswerChoice = useMutationPostHook(
-    `/surveys/${survey_id}/pages/${page_id}/questions/${question_id}/choices`,
+    `/surveys/${survey_id}/pages/${page_id}/questions/${question_id}`,
     "getSurveyDetails",
   );
 
@@ -73,7 +73,7 @@ const Question = ({
         ? { choice_label: "" }
         : { choice_label: "", open_ended_choice_type: "question" };
     // @ts-ignore
-    addAnswerChoice.mutate(payload);
+    addAnswerChoice.mutate({ payload, id: "choices" });
   };
 
   const handleDeleteQuestion = () => {

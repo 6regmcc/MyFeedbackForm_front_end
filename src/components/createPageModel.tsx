@@ -29,7 +29,7 @@ function CreatePageModel() {
   const [pageTitle, setPageTitle] = useState("");
   const [pageDescription, setPageDescription] = useState("");
   const createPage = useMutationPostHook(
-    `surveys/${survey_id}/pages`,
+    `surveys/${survey_id}`,
     "getSurveyDetails",
     clearAndClose,
   );
@@ -38,8 +38,11 @@ function CreatePageModel() {
     e.preventDefault;
     // @ts-ignore
     createPage.mutate({
-      page_title: pageTitle,
-      page_description: pageDescription,
+      payload: {
+        page_title: pageTitle,
+        page_description: pageDescription,
+      },
+      id: "pages",
     });
   };
 

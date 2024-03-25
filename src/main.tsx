@@ -13,6 +13,7 @@ import Register from "./components/register.tsx";
 import Home from "./pages/home.tsx";
 import Test from "./components/test.tsx";
 import BuildSurvey from "./pages/buildSurvey.tsx";
+import SurveyResponsesPage from "./pages/surveyResponsesPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <Routes>
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
+              <Route
+                path="/responses/:collector_url"
+                element={<SurveyResponsesPage />}
+              />
             </Routes>
           </Router>
         </AuthProvider>

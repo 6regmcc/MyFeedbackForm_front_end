@@ -16,7 +16,7 @@ import { useState } from "react";
 
 import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
 
-const CREATE_SURVEY_URL = "/surveys";
+const CREATE_SURVEY_URL = "";
 
 function CreateSurveyModel() {
   const clearAndClose = () => {
@@ -34,7 +34,10 @@ function CreateSurveyModel() {
   const handleClick = (e: any) => {
     e.preventDefault;
     // @ts-ignore
-    createSurvey.mutate({ survey_name: surveyName });
+    createSurvey.mutate({
+      payload: { survey_name: surveyName },
+      id: "surveys",
+    });
   };
 
   return (

@@ -5,7 +5,7 @@ import axios from "../api/axios.ts";
 import useMutationHook from "../hooks/useMutationPostHook.tsx";
 import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
 
-const CREATE_SURVEY_URL = "/surveys";
+const CREATE_SURVEY_URL = "/";
 const CreateSurvey = () => {
   const [surveyName, setSurveyName] = useState("");
 
@@ -13,9 +13,13 @@ const CreateSurvey = () => {
 
   const handleClick = (e: any) => {
     e.preventDefault;
-    // @ts-ignore
+
     //createSurvey.mutate({ survey_name: surveyName });
-    createSurvey.mutate({ survey_name: surveyName });
+    // @ts-ignore
+    createSurvey.mutate({
+      payload: { survey_name: surveyName },
+      id: "surveys",
+    });
     setSurveyName("");
   };
   return (
