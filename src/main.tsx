@@ -14,33 +14,36 @@ import Home from "./pages/home.tsx";
 import Test from "./components/test.tsx";
 import BuildSurvey from "./pages/buildSurvey.tsx";
 import SurveyResponsesPage from "./pages/surveyResponsesPage.tsx";
+import { CookiesProvider } from "react-cookie";
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider>
-        <AuthProvider>
-          <Router>
-            <Routes>
-              <Route element={<PrivateRoutes />}>
-                <Route path="/test" element={<Home />} />
-                <Route path="/" element={<Home />} />
-                <Route path="/build/:survey_id" element={<BuildSurvey />} />
-              </Route>
-            </Routes>
-            <Routes>
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
-              <Route
-                path="/responses/:collector_url"
-                element={<SurveyResponsesPage />}
-              />
-            </Routes>
-          </Router>
-        </AuthProvider>
-      </ChakraProvider>
-    </QueryClientProvider>
+    <CookiesProvider defaultSetOptions={{ path: "/" }}>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider>
+          <AuthProvider>
+            <Router>
+              <Routes>
+                <Route element={<PrivateRoutes />}>
+                  <Route path="/test" element={<Home />} />
+                  <Route path="/" element={<Home />} />
+                  <Route path="/build/:survey_id" element={<BuildSurvey />} />
+                </Route>
+              </Routes>
+              <Routes>
+                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+                <Route
+                  path="/responses/:collector_url"
+                  element={<SurveyResponsesPage />}
+                />
+              </Routes>
+            </Router>
+          </AuthProvider>
+        </ChakraProvider>
+      </QueryClientProvider>
+    </CookiesProvider>
   </React.StrictMode>,
 );
