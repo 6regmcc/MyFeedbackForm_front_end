@@ -20,7 +20,8 @@ const ResponsesPageSingleTextboxQ = ({
             },
             submitted_response: {
               question_id: question.question_id,
-              ce_choices: tempArr,
+              oe_choice_id: question.answer_choices[0].oe_choice_id,
+              answer_text: e.target.value,
             },
           });
         }}

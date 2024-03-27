@@ -75,6 +75,30 @@ const addOrUpdateResponse = (newResponse: any) => {
   console.log(responses);
 };
 
+const question = {
+  question_type: "open_ended",
+  question_variant: "single_choice",
+  question_text: "Test single textbox question",
+  answer_choices: [
+    {
+      open_ended_choice_type: "question",
+      choice_label: "Test single textbox question",
+      question_id: 196,
+      oe_choice_id: 66,
+      choice_position: 1,
+      date_created: "2024-03-27T17:16:21.600215",
+      date_modified: "2024-03-27T17:16:21.600216",
+    },
+  ],
+  has_other_answer_choice: false,
+  survey_id: 230,
+  page_id: 260,
+  question_position: 1,
+  question_id: 196,
+  date_created: "2024-03-27T17:16:21.585778",
+  date_modified: "2024-03-27T17:16:21.585779",
+};
+
 export const Default = () => (
   <ResponsesPageSingleTextboxQ question={question} />
 );

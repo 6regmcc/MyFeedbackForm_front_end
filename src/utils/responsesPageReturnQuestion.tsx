@@ -1,5 +1,6 @@
 import ResponsesPageMultiChoiceQ from "../components/responsesPageComponents/responsesPageMultiChoiceQ.tsx";
 import ResponsesPageCheckboxQ from "../components/responsesPageComponents/responsesPageCheckboxQ.tsx";
+import ResponsesPageSingleTextboxQ from "../components/responsesPageComponents/responsesPageSingleTextboxQ.tsx";
 
 const responsesPageReturnQuestion = ({
   question,
@@ -23,6 +24,17 @@ const responsesPageReturnQuestion = ({
   ) {
     return (
       <ResponsesPageCheckboxQ
+        question={question}
+        existingResponse={existingResponse}
+        addOrUpdateAnswers={addOrUpdateAnswers}
+      />
+    );
+  } else if (
+    question.question_type === "open_ended" &&
+    question.question_variant === "single_choice"
+  ) {
+    return (
+      <ResponsesPageSingleTextboxQ
         question={question}
         existingResponse={existingResponse}
         addOrUpdateAnswers={addOrUpdateAnswers}
