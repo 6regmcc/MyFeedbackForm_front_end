@@ -3,14 +3,14 @@ import { ChakraProvider, OrderedList } from "@chakra-ui/react";
 
 import { BrowserRouter } from "react-router-dom";
 
-import ResponsesPageMultiChoiceQ from "../responsesPageMultiChoiceQ.tsx";
+import ResponsesPageSingleTextboxQ from "../responsesPageSingleTextboxQ.tsx";
 import { useState } from "react";
 
 const queryClient = new QueryClient();
 
 export default {
-  component: ResponsesPageMultiChoiceQ,
-  title: "ResponsesPageMultiChoiceQ",
+  component: ResponsesPageSingleTextboxQ,
+  title: "ResponsesPageSingleTextboxQ",
   tags: ["autodocs"],
   decorators: [
     (Story: any) => (
@@ -76,11 +76,7 @@ const addOrUpdateResponse = (newResponse: any) => {
 };
 
 export const Default = () => (
-  <ResponsesPageMultiChoiceQ
-    question={question}
-    existingResponse={245}
-    addOrUpdateResponse={addOrUpdateResponse}
-  />
+  <ResponsesPageSingleTextboxQ question={question} />
 );
 
 console.log(responses);

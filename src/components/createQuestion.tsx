@@ -67,7 +67,10 @@ const CreateQuestion = ({
       question_type: questionType.question_type,
       question_variant: questionType.question_variant,
       question_text: questionText,
-      answer_choices: answerChoiceLabels,
+      answer_choices:
+        answerChoiceLabels.length === 0
+          ? [{ open_ended_choice_type: "question", choice_label: questionText }]
+          : answerChoiceLabels,
     };
     // @ts-ignore
     createQuestion.mutate({ payload: newQuestion, id: "questions" });

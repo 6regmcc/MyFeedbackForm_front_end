@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Box, Text, Checkbox, CheckboxGroup, Stack } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -13,7 +14,7 @@ const ResponsesPageCheckboxQ = ({
       <Text>{question.question_text}</Text>
       <CheckboxGroup value={checkedItems}>
         <Stack>
-          {question.answer_choices.map((q: any, index: number) => {
+          {question.answer_choices.map((q: any) => {
             return (
               <Checkbox
                 onChange={(e) => {
