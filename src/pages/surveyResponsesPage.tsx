@@ -8,18 +8,21 @@ import { Text } from "@chakra-ui/react";
 import ResponsePageListQuestions from "../components/responsesPageComponents/responsePageListQuestions.tsx";
 import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
 import Cookies from "js-cookie";
-import { useCookies } from "react-cookie";
+
 import { v4 as uuidv4 } from "uuid";
 
 const SurveyResponsesPage = () => {
   const [page, setPage] = useState(0);
   const { collector_url } = useParams();
-  //const[(cookies, setCookie, removeCookie)] = useCookies(["test_id"]);
+  const createOrUpdateResponse = useMutationPostHook(
+    `/responses/${collector_url}/create_response/questions`,
+    `responses${page}`,
+  );
 
-  if (!Cookies.get("session_id")) {
-    Cookies.set("session_id", uuidv4());
+  if (!Cookies.get("session__id")) {
+    Cookies.set("session__id", uuidv4());
   }
-  // @ts-ignore
+
   const { isLoading, isError, error, data, isFetching, isPreviousData } =
     useQuery({
       queryKey: [`responses${page}`],
@@ -32,16 +35,11 @@ const SurveyResponsesPage = () => {
           withCredentials: true,
         });
       },
-      // @ts-ignore
+
       keepPreviousData: true,
     });
-  const createResponse = useMutationPostHook(
-    `/responses/${collector_url}`,
-    `responses${page}`,
-  );
 
   const [answers, setAnswers] = useState([]);
-  console.log(answers);
 
   const addOrUpdateAnswers = (answer) => {
     const filteredArr = answers.filter((a) => {
@@ -54,36 +52,13 @@ const SurveyResponsesPage = () => {
     setAnswers(filteredArr);
   };
 
-  /*
-  const addOrUpdateAnswers = (answer: any) => {
-    setAnswers((ans) => {
-      return ans.filter(
-        (a) =>
-          a.submitted_response.question_id !=
-          a.submitted_response.question_id.push(["test"]),
-      );
-    });
-  };
-  */
-  /*
-  setAnswers((answers444) => {
-      const filteredAnswers = answers444.filter(
-        () =>
-          answers444.
-      );
-      filteredAnswers.push(answer);
-      console.log(answers444);
-      return filteredAnswers;
-    });
-   */
-
-  const addOrUpdateResponse = (newResponse: any) => {
-    // @ts-ignore
-    const filterArr = responses.filter(
-      (response) => response.question_id != newResponse.question_id,
-    );
-    filterArr.push(newResponse);
-    responses = filterArr;
+  const handleSubmitResponse = () => {
+    const current_session_id = Cookies.get("session__id");
+    const response = {
+      session_id: current_session_id,
+      answers: answers,
+    };
+    createOrUpdateResponse.mutate({ payload: response, id: page + 1 });
   };
 
   return (
@@ -120,9 +95,8 @@ const SurveyResponsesPage = () => {
             if (!isPreviousData && page + 1 != data?.data.total_pages) {
               setPage((old) => old + 1);
             }
+            handleSubmitResponse();
           }}
-          // Disable the Next Page button until we know a next page is available
-          disabled={isPreviousData || page + 1 === data?.data.total_pages}
         >
           Next Page
         </Button>

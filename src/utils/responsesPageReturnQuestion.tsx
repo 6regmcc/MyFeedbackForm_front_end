@@ -1,4 +1,5 @@
 import ResponsesPageMultiChoiceQ from "../components/responsesPageComponents/responsesPageMultiChoiceQ.tsx";
+import ResponsesPageCheckboxQ from "../components/responsesPageComponents/responsesPageCheckboxQ.tsx";
 
 const responsesPageReturnQuestion = ({
   question,
@@ -11,6 +12,17 @@ const responsesPageReturnQuestion = ({
   ) {
     return (
       <ResponsesPageMultiChoiceQ
+        question={question}
+        existingResponse={existingResponse}
+        addOrUpdateAnswers={addOrUpdateAnswers}
+      />
+    );
+  } else if (
+    question.question_type === "closed_ended" &&
+    question.question_variant === "multi_choice"
+  ) {
+    return (
+      <ResponsesPageCheckboxQ
         question={question}
         existingResponse={existingResponse}
         addOrUpdateAnswers={addOrUpdateAnswers}
