@@ -21,6 +21,7 @@ import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
 import MyFeedbackForm_large from "../../images/MyFeedbackForm_large.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoHomeOutline } from "react-icons/io5";
+import AvatarComponent from "../avatorComponent.tsx";
 
 const ResultsPageNavBar = () => {
   const navigate = useNavigate();
@@ -76,7 +77,7 @@ const ResultsPageNavBar = () => {
         <Spacer />
 
         <HStack>
-          <Avatar size="lg" name="Greg McCarthy" />
+          <AvatarComponent />
         </HStack>
       </Flex>
     </Box>

@@ -19,6 +19,7 @@ import MyFeedbackForm_large from "../../images/MyFeedbackForm_large.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { IoHomeOutline } from "react-icons/io5";
+import AvatarComponent from "../avatorComponent.tsx";
 
 const BuildSurveyPageNavBar = () => {
   const navigate = useNavigate();
@@ -76,7 +77,7 @@ const BuildSurveyPageNavBar = () => {
             <CreatePageModel />
           </Box>
 
-          <Avatar size="lg" name="Greg McCarthy" />
+          <AvatarComponent />
         </HStack>
       </Flex>
     </Box>
