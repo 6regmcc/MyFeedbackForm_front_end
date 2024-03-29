@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import CreateSurveyModel from "../createSurveyModel.tsx";
 import MyFeedbackForm_large from "../../images/MyFeedbackForm_large.png";
+import AvatarComponent from "../avatorComponent.tsx";
 const HomeNavBar = () => {
   return (
     <Box>
@@ -26,7 +27,7 @@ const HomeNavBar = () => {
             <CreateSurveyModel />
           </Box>
 
-          <Avatar size="lg" name="Greg McCarthy" />
+          <AvatarComponent />
         </HStack>
       </Flex>
     </Box>
