@@ -158,7 +158,9 @@ const Register = () => {
               upper case, number and !@#$%
             </FormHelperText>
           </FormControl>
-          <Button onClick={handleSubmit}>Register</Button>
+          <Button my={4} onClick={handleSubmit}>
+            Register
+          </Button>
         </form>
       )}
     </Box>

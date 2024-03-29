@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import {
   FormErrorMessage,
   FormLabel,
@@ -7,11 +7,15 @@ import {
   Input,
   Button,
   Box,
+  Text,
+  Spacer,
+  HStack,
 } from "@chakra-ui/react";
 import useAuth from "../hooks/useAuth.ts";
 import axios from "../api/axios";
 import qs from "qs";
 import { AuthContext } from "../context/AuthProvider.tsx";
+import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
 
 const LOGIN_URL = "/auth/token";
 
@@ -54,7 +58,18 @@ const Login = () => {
   };
 
   return (
-    <Box>
+    <Box height="300px " width="600px" m={10}>
+      <HStack>
+        <Text m={4} fontSize="2xl">
+          Sign In
+        </Text>
+        <Spacer />
+        <ChakraLink as={ReactRouterLink} to={`/register`}>
+          <Text decoration="underline" m={4} fontSize="md">
+            Register new account
+          </Text>
+        </ChakraLink>
+      </HStack>
       {success ? (
         <h1>Login successful</h1>
       ) : (
@@ -78,6 +93,7 @@ const Login = () => {
             <FormErrorMessage>{error}</FormErrorMessage>
           </FormControl>
           <Button
+            my={4}
             onClick={handleSubmit}
             isDisabled={email.length === 0 || pwd.length === 0}
           >
