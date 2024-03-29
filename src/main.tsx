@@ -19,6 +19,7 @@ import { CookiesProvider } from "react-cookie";
 import SurveyResultsPage from "./pages/surveyResultsPage.tsx";
 import RegisterPage from "./pages/registerPage.tsx";
 import SignInPage from "./pages/signInPage.tsx";
+import SurveyCompletedPage from "./pages/surveyCompletedPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -42,7 +43,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Routes>
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/sign_in" element={<SignInPage />} />
-
+                <Route
+                  path="/survey_completed"
+                  element={<SurveyCompletedPage />}
+                />
                 <Route
                   path="/responses/:collector_url"
                   element={<SurveyResponsesPage />}

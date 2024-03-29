@@ -3,7 +3,7 @@ import { Box, Button, Container, HStack, Spacer } from "@chakra-ui/react";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "../api/axios.ts";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Text } from "@chakra-ui/react";
 import ResponsePageListQuestions from "../components/responsesPageComponents/responsePageListQuestions.tsx";
 import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import { v4 as uuidv4 } from "uuid";
 
 const SurveyResponsesPage = () => {
+  const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const { collector_url } = useParams();
   const createOrUpdateResponse = useMutationPostHook(
@@ -104,6 +105,7 @@ const SurveyResponsesPage = () => {
               console.log("remove cookie");
               Cookies.remove("session__id", { path: "/" });
               handleSubmitResponse();
+              navigate("/survey_completed");
             }
           }}
         >
