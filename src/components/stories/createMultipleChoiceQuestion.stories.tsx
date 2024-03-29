@@ -4,7 +4,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import { SurveyType } from "../../types/types.ts";
 import * as inspector from "inspector";
-import CreateMultipleChoiceQuestion from "../createQuestion.tsx";
+import CreateMultipleChoiceQuestion from "../createQuestionComponents/createQuestion.tsx";
 
 const queryClient = new QueryClient();
 

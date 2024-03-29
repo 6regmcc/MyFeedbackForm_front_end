@@ -40,10 +40,10 @@ const ListSurveys = () => {
   //console.log(surveysList);
   return (
     <Box boxShadow="base" p={4} mt={10}>
-      {surveysList.map((survey: SurveyType, index: number) => {
+      {surveysList.map((survey: SurveyType) => {
         return (
           <Survey
-            key={index}
+            key={`${survey.survey_id}${survey.survey_name}`}
             surveyName={survey.survey_name}
             surveyId={survey.survey_id}
           />

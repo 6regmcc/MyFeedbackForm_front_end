@@ -6,11 +6,13 @@ import {
   IconButton,
   Flex,
   Spacer,
+  Center,
 } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
-import { useNavigate } from "react-router-dom";
+import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import { HiOutlineChartSquareBar } from "react-icons/hi";
+import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
 
 const DELETE_SURVEY_URL = "/surveys";
 
@@ -24,10 +26,15 @@ const Survey = ({ surveyName, surveyId }: any) => {
   };
 
   return (
-    <Card my={4}>
+    <Card m={4}>
       <CardBody>
         <Flex>
-          <Text>{surveyName} </Text>
+          <Center>
+            <ChakraLink as={ReactRouterLink} to={`/build/${surveyId}`}>
+              <Text fontSize="lg">{surveyName} </Text>
+            </ChakraLink>
+          </Center>
+
           <Spacer />
           <HStack spacing="10px">
             <IconButton

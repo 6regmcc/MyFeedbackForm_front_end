@@ -5,6 +5,7 @@ import {
   EditablePreview,
   Spinner,
   Text,
+  Box,
 } from "@chakra-ui/react";
 import ListSurveys from "../components/listSurveys.tsx";
 import HomeNavBar from "../components/navHeaders/homeNavBar.tsx";
@@ -12,7 +13,7 @@ import BuildSurveyPageNavBar from "../components/navHeaders/buildSurveyPageNavBa
 import SurveyPage from "../components/surveyPage.tsx";
 import useQueryHook from "../hooks/useQueryHook.tsx";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 import axios from "../api/axios.ts";
 import survey from "../components/survey.tsx";
 import { useState } from "react";
@@ -23,6 +24,8 @@ const BuildSurvey = () => {
   const { survey_id } = useParams();
   const [editSurveyName, setEditSurveyName] = useState("");
   const updateSurvey = useMutationPutHook(`/surveys`, "getSurveyDetails");
+  const queryClient = new QueryClient();
+  queryClient.invalidateQueries({ queryKey: ["getSurveyDetails", survey_id] });
   const getSurveyDetails = async () => {
     return await axios.get(`surveys/${survey_id}/details`, {
       headers: {
@@ -34,7 +37,7 @@ const BuildSurvey = () => {
   };
 
   const { isLoading, isError, data, error } = useQuery({
-    queryKey: ["getSurveyDetails"],
+    queryKey: ["getSurveyDetails", survey_id],
     queryFn: getSurveyDetails,
   });
 
@@ -45,7 +48,11 @@ const BuildSurvey = () => {
   if (isLoading) {
     return <Spinner />;
   }
-  const surveysDetails = data?.data;
+  let surveysDetails = {};
+  if (data) {
+    surveysDetails = data?.data;
+  }
+
   //console.log(surveysDetails.pages[0].questions);
 
   const handleNameChange = () => {
@@ -57,41 +64,51 @@ const BuildSurvey = () => {
   };
 
   return (
-    <Container maxW="1200px">
-      <BuildSurveyPageNavBar />
-      <Editable
-        fontSize="5xl"
-        m={2}
-        sx={
-          surveysDetails.survey_name.length === 0 && editSurveyName.length === 0
-            ? { textColor: "gray" }
-            : { textColor: "black" }
-        }
-        //value={editPageTitle}
-        onChange={(e) => {
-          setEditSurveyName(e);
-        }}
-        onSubmit={handleNameChange}
-        defaultValue={surveysDetails.survey_name}
-        placeholder={"Enter survey title (optional)"}
-      >
-        <EditablePreview />
-        <EditableInput />
-      </Editable>
-      <ListCollectors survey_id={survey_id} />
-      {surveysDetails.pages.map((page: any, index: any) => {
-        return (
-          <SurveyPage
-            key={index}
-            pageTitle={page.page_title}
-            pageDescription={page.page_description}
-            page_id={page.page_id}
-            questions={page.questions}
-            survey_id={survey_id}
-          />
-        );
-      })}
-    </Container>
+    <Box>
+      {data ? (
+        <Box>
+          <Container my="30" maxW="1200px">
+            <BuildSurveyPageNavBar />
+            <Editable
+              fontSize="5xl"
+              m={2}
+              sx={
+                surveysDetails.survey_name.length === 0 &&
+                editSurveyName.length === 0
+                  ? { textColor: "gray" }
+                  : { textColor: "black" }
+              }
+              //value={editPageTitle}
+              onChange={(e) => {
+                setEditSurveyName(e);
+              }}
+              onSubmit={handleNameChange}
+              defaultValue={surveysDetails.survey_name}
+              placeholder={"Enter survey title (optional)"}
+            >
+              <EditablePreview />
+              <EditableInput />
+            </Editable>
+            <ListCollectors survey_id={survey_id} />
+            {surveysDetails.pages.map((page: any) => {
+              return (
+                <SurveyPage
+                  key={`${page.page_id}${page.page_title}`}
+                  pageTitle={page.page_title}
+                  pageDescription={page.page_description}
+                  page_id={page.page_id}
+                  questions={page.questions}
+                  survey_id={survey_id}
+                />
+              );
+            })}
+          </Container>
+          <Box height="50"></Box>
+        </Box>
+      ) : (
+        <></>
+      )}
+    </Box>
   );
 };
 

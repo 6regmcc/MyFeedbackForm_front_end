@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import CreateMultipleChoiceAnswerChoice from "./createMultipleChoiceAnswerChoice.tsx";
-import useMutationPostHook from "../hooks/useMutationPostHook.tsx";
+import useMutationPostHook from "../../hooks/useMutationPostHook.tsx";
 import _ from "lodash";
 import CreateCheckboxAnswerChoices from "./createCheckboxAnswerChoices.tsx";
 

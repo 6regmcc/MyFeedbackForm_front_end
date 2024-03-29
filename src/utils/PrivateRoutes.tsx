@@ -9,7 +9,7 @@ const PrivateRoutes = () => {
   return user.accessToken ? (
     <Outlet /> || localStorage.getItem("accessToken")
   ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
+    <Navigate to="/sign_in" state={{ from: location }} replace />
   );
 };
 
