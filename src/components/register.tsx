@@ -7,11 +7,17 @@ import {
   Button,
   FormHelperText,
   Box,
+  Text,
+  HStack,
+  Spacer,
 } from "@chakra-ui/react";
 
 import axios from "../api/axios";
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider.tsx";
+import { Link as ReactRouterLink } from "react-router-dom";
+import { MdOutlineArrowBackIos } from "react-icons/md";
+import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -35,15 +41,13 @@ const Register = () => {
 
   useEffect(() => {
     const result = EMAIL_REGEX.test(email);
-    console.log(result);
-    console.log(email);
+
     setValidEmail(result);
   }, [email]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(pwd);
-    console.log(result);
-    console.log(pwd);
+
     setValidPwd(result);
     const match = pwd === matchPwd;
     setValidMatch(match);
@@ -82,7 +86,19 @@ const Register = () => {
   };
 
   return (
-    <Box>
+    <Box m={10}>
+      <HStack>
+        <Text m={4} fontSize="2xl">
+          Register new account
+        </Text>
+        <Spacer />
+        <ChakraLink as={ReactRouterLink} to={`/sign_in`}>
+          <Text decoration="underline" m={4} fontSize="md">
+            Sign in to existing account
+          </Text>
+        </ChakraLink>
+      </HStack>
+
       {success ? (
         <h1>Account successfully registered</h1>
       ) : (
@@ -138,8 +154,8 @@ const Register = () => {
               onChange={(e) => setMatchPwd(e.target.value)}
             />
             <FormHelperText>
-              Password must be at least 8 characters and contain 1 lower case +
-              1 upper case + 1 number + 1 special character
+              Password must be at least 8 characters and contain lower case,
+              upper case, number and !@#$%
             </FormHelperText>
           </FormControl>
           <Button onClick={handleSubmit}>Register</Button>

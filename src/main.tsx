@@ -11,13 +11,13 @@ import PrivateRoutes from "./utils/PrivateRoutes.tsx";
 import Login from "./components/login.tsx";
 import Register from "./components/register.tsx";
 import Home from "./pages/home.tsx";
-import Test from "./components/test.tsx";
+
 import BuildSurvey from "./pages/buildSurvey.tsx";
 import SurveyResponsesPage from "./pages/surveyResponsesPage.tsx";
 import { CookiesProvider } from "react-cookie";
-import TestResponsesTable from "./components/responsesTable/ResponsesTable.tsx";
-import ResponsesTable from "./components/responsesTable/ResponsesTable.tsx";
+
 import SurveyResultsPage from "./pages/surveyResultsPage.tsx";
+import RegisterPage from "./pages/registerPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -39,7 +39,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 </Route>
               </Routes>
               <Routes>
-                <Route path="/register" element={<Register />} />
+                <Route path="/register" element={<RegisterPage />} />
                 <Route path="/login" element={<Login />} />
 
                 <Route

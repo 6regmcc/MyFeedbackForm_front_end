@@ -7,6 +7,7 @@ import {
   Avatar,
   Button,
   Image,
+  IconButton,
 } from "@chakra-ui/react";
 import CreateSurveyModel from "../createSurveyModel.tsx";
 import CreatePageModel from "../createPageModel.tsx";
@@ -16,6 +17,8 @@ import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
 
 import MyFeedbackForm_large from "../../images/MyFeedbackForm_large.png";
 import { useNavigate, useParams } from "react-router-dom";
+import { DeleteIcon } from "@chakra-ui/icons";
+import { IoHomeOutline } from "react-icons/io5";
 
 const BuildSurveyPageNavBar = () => {
   const navigate = useNavigate();
@@ -27,6 +30,15 @@ const BuildSurveyPageNavBar = () => {
           <Box boxSize="200px">
             <Image src={MyFeedbackForm_large} alt="My feedback from" />
           </Box>
+          <IconButton
+            m={5}
+            size="lg"
+            aria-label="Delete Survey"
+            icon={<IoHomeOutline />}
+            onClick={() => {
+              navigate("/");
+            }}
+          />
           <ChakraLink
             as={ReactRouterLink}
             to={`/build/${survey_id}`}
@@ -60,8 +72,11 @@ const BuildSurveyPageNavBar = () => {
         <Spacer />
 
         <HStack>
-          <CreatePageModel />
-          <Avatar name="Greg McCarthy" />
+          <Box m={8}>
+            <CreatePageModel />
+          </Box>
+
+          <Avatar size="lg" name="Greg McCarthy" />
         </HStack>
       </Flex>
     </Box>
