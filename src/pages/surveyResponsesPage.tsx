@@ -79,29 +79,39 @@ const SurveyResponsesPage = () => {
           </Box>
         </Box>
       )}
-      <Text>Current Page: {page + 1}</Text>
+      <Text></Text>
       <HStack>
-        <Button
+        {/*
+           <Button
           ml={20}
           onClick={() => setPage((old) => Math.max(old - 1, 0))}
           disabled={page === 0}
         >
           Previous Page
         </Button>
+        */}
+
         <Spacer />
         <Button
-          mr={20}
+          size="lg"
+          my={6}
           onClick={() => {
             if (!isPreviousData && page + 1 != data?.data.total_pages) {
               setPage((old) => old + 1);
+
+              handleSubmitResponse();
+            } else {
+              console.log("remove cookie");
+              Cookies.remove("session__id", { path: "/" });
+              handleSubmitResponse();
             }
-            handleSubmitResponse();
           }}
         >
-          Next Page
+          {!isPreviousData && page + 1 != data?.data.total_pages
+            ? "Next Page"
+            : "Finish Survey"}
         </Button>
       </HStack>{" "}
-      {isFetching ? <span> Loading...</span> : null}{" "}
     </Container>
   );
 };

@@ -40,7 +40,7 @@ const Collector = ({ survey_id, is_open, url, collector_id }: any) => {
   return (
     <ListItem m={2}>
       <HStack>
-        <Link> http://127.0.0.1:8000/responses/{url}</Link>
+        <Link> http://localhost:5173/responses/{url}</Link>
         <Spacer />
         <Spacer />
         <Box>

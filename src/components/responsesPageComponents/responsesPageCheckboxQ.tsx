@@ -8,7 +8,7 @@ const ResponsesPageCheckboxQ = ({
   addOrUpdateAnswers,
 }: any) => {
   const [checkedItems, setCheckedItems] = useState([]);
-  console.log(checkedItems);
+
   const questionTextStyles: any = {
     fontSize: "2xl",
     ml: 6,

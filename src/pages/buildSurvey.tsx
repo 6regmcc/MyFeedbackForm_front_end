@@ -48,7 +48,7 @@ const BuildSurvey = () => {
   if (isLoading) {
     return <Spinner />;
   }
-  let surveysDetails = {};
+  let surveysDetails = data?.data;
   if (data) {
     surveysDetails = data?.data;
   }
@@ -57,9 +57,11 @@ const BuildSurvey = () => {
 
   const handleNameChange = () => {
     // @ts-ignore
+
     updateSurvey.mutate({
       payload: { survey_name: editSurveyName },
-      id: surveysDetails.survey_id,
+      // @ts-ignore
+      id: surveysDetails?.survey_id,
     });
   };
 
