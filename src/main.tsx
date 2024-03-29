@@ -15,7 +15,9 @@ import Test from "./components/test.tsx";
 import BuildSurvey from "./pages/buildSurvey.tsx";
 import SurveyResponsesPage from "./pages/surveyResponsesPage.tsx";
 import { CookiesProvider } from "react-cookie";
-import TestResponsesTable from "./components/responsesTable/testResponsesTable.tsx";
+import TestResponsesTable from "./components/responsesTable/ResponsesTable.tsx";
+import ResponsesTable from "./components/responsesTable/ResponsesTable.tsx";
+import SurveyResultsPage from "./pages/surveyResultsPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -28,7 +30,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <Router>
               <Routes>
                 <Route element={<PrivateRoutes />}>
-                  <Route path="/test" element={<Home />} />
+                  <Route
+                    path="/survey_results/:survey_id"
+                    element={<SurveyResultsPage />}
+                  />
                   <Route path="/" element={<Home />} />
                   <Route path="/build/:survey_id" element={<BuildSurvey />} />
                 </Route>
@@ -36,7 +41,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Routes>
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/testgrid" element={<TestResponsesTable />} />
+
                 <Route
                   path="/responses/:collector_url"
                   element={<SurveyResponsesPage />}

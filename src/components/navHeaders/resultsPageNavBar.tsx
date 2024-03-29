@@ -7,17 +7,14 @@ import {
   Avatar,
   Button,
 } from "@chakra-ui/react";
-import CreateSurveyModel from "./createSurveyModel.tsx";
-import CreatePageModel from "./createPageModel.tsx";
 
-const BuildSurveyPageNavBar = () => {
+const ResultsPageNavBar = () => {
   return (
     <Box>
       <Flex>
         <Text>My Feedback Form</Text>
         <Spacer />
         <HStack>
-          <CreatePageModel />
           <Avatar name="Greg McCarthy" />
         </HStack>
       </Flex>
@@ -25,4 +22,4 @@ const BuildSurveyPageNavBar = () => {
   );
 };
 
-export default BuildSurveyPageNavBar;
+export default ResultsPageNavBar;

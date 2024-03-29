@@ -10,6 +10,7 @@ import {
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
 import { useNavigate } from "react-router-dom";
+import { HiOutlineChartSquareBar } from "react-icons/hi";
 
 const DELETE_SURVEY_URL = "/surveys";
 
@@ -34,6 +35,13 @@ const Survey = ({ surveyName, surveyId }: any) => {
               icon={<EditIcon />}
               onClick={() => {
                 navigate(`/build/${surveyId}`);
+              }}
+            />
+            <IconButton
+              aria-label="Analyse Survey"
+              icon={<HiOutlineChartSquareBar />}
+              onClick={() => {
+                navigate(`/survey_results/${surveyId}`);
               }}
             />
             <IconButton

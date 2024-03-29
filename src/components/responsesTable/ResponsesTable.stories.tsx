@@ -1,16 +1,16 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, OrderedList } from "@chakra-ui/react";
 
-import HomeNavBar from "../homeNavBar.tsx";
 import { BrowserRouter } from "react-router-dom";
-import { SurveyType } from "../../types/types.ts";
-import * as inspector from "inspector";
+import TestResponsesTable from "./ResponsesTable.tsx";
+
+import { useState } from "react";
 
 const queryClient = new QueryClient();
 
 export default {
-  component: HomeNavBar,
-  title: "HomeNavBar",
+  component: TestResponsesTable,
+  title: "TestResponsesTable",
   tags: ["autodocs"],
   decorators: [
     (Story: any) => (
@@ -23,6 +23,4 @@ export default {
   ],
 };
 
-export const Default = {
-  args: {},
-};
+export const Default = () => <TestResponsesTable />;

@@ -7,8 +7,8 @@ import {
   Avatar,
   Image,
 } from "@chakra-ui/react";
-import CreateSurveyModel from "./createSurveyModel.tsx";
-import MyFeedbackForm_large from "../images/MyFeedbackForm_large.png";
+import CreateSurveyModel from "../createSurveyModel.tsx";
+import MyFeedbackForm_large from "../../images/MyFeedbackForm_large.png";
 const HomeNavBar = () => {
   return (
     <Box>

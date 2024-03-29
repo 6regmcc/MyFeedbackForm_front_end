@@ -7,8 +7,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import ListSurveys from "../components/listSurveys.tsx";
-import HomeNavBar from "../components/homeNavBar.tsx";
-import BuildSurveyPageNavBar from "../components/buildSurveyPageNavBar.tsx";
+import HomeNavBar from "../components/navHeaders/homeNavBar.tsx";
+import BuildSurveyPageNavBar from "../components/navHeaders/buildSurveyPageNavBar.tsx";
 import SurveyPage from "../components/surveyPage.tsx";
 import useQueryHook from "../hooks/useQueryHook.tsx";
 import { useParams } from "react-router-dom";
