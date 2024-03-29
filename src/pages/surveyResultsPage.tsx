@@ -29,7 +29,7 @@ const SurveyResultsPage = () => {
 
   return (
     <Container maxWidth="2000px">
-      <BuildSurveyPageNavBar />
+      <ResultsPageNavBar />
       {tableHeadersData && tableData ? (
         <ResponsesTable
           tableHeaders={tableHeadersData.data}
