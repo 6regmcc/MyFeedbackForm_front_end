@@ -40,7 +40,7 @@ const Collector = ({ survey_id, is_open, url, collector_id }: any) => {
   return (
     <ListItem m={2}>
       <HStack>
-        <Link> {`${BASE_URL}/responses/${url}`}</Link>
+        <Link> {`https://${BASE_URL}/responses/${url}`}</Link>
         <Spacer />
         <Spacer />
         <Box>
