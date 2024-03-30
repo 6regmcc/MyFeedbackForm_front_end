@@ -14,7 +14,7 @@ import { DeleteIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import useMutationPatchHook from "../hooks/useMutationPatchHook.tsx";
 import useMutationDeleteHook from "../hooks/useMutationDeleteHook.tsx";
-const BASE_URL = import.meta.env.BASE_URL;
+const BASE_URL = window.location.hostname;
 const Collector = ({ survey_id, is_open, url, collector_id }: any) => {
   const updateCollector = useMutationPatchHook(
     `/surveys/${survey_id}/collectors`,
@@ -40,7 +40,7 @@ const Collector = ({ survey_id, is_open, url, collector_id }: any) => {
   return (
     <ListItem m={2}>
       <HStack>
-        <Link> http://localhost:5173/responses/{url}</Link>
+        <Link> {`${BASE_URL}/responses/${url}`}</Link>
         <Spacer />
         <Spacer />
         <Box>
